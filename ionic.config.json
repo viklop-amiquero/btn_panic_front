@@ -1,0 +1,7 @@
+{
+  "name": "btn_panic_front",
+  "integrations": {
+    "capacitor": {}
+  },
+  "type": "angular"
+}
