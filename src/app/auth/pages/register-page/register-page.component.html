@@ -1,15 +1,16 @@
 <ion-header>
     <ion-toolbar>
-        <ion-title>Registrarse</ion-title>
         <ion-img
             src="assets/logo.png"
-            style="width: 40px; margin-left: 10px"
+            style="width: 60px; margin-left: 10px"
         ></ion-img>
+        <ion-title style="text-align: center">Registrarse</ion-title>
     </ion-toolbar>
     <ion-toolbar>
         <ion-note
             style="
                 text-align: center;
+                font-weight: bold;
                 width: 100%;
                 display: block;
                 font-size: 14px;
@@ -27,40 +28,43 @@
             <ion-label position="floating">Nombres</ion-label>
             <ion-input formControlName="nombre"></ion-input>
         </ion-item>
-        <!-- <ion-text color="danger">
-            Nombre es requerido (mín. 2 caracteres)
-        </ion-text> -->
+
+        <ion-text color="danger" *ngIf="isInvalidField('nombre')">
+            Nombre es inválido.
+        </ion-text>
 
         <ion-item>
             <ion-label position="floating">Apellidos</ion-label>
             <ion-input formControlName="apellido"></ion-input>
         </ion-item>
-        <!-- <ion-text color="danger">
-            Apellido es requerido (mín. 2 caracteres)
-        </ion-text> -->
+        <ion-text color="danger" *ngIf="isInvalidField('apellido')">
+            El apellido es invalido
+        </ion-text>
 
         <ion-item>
             <ion-label position="floating">Celular</ion-label>
             <ion-input formControlName="telefono"></ion-input>
         </ion-item>
-        <!-- <ion-text color="danger">
-            Celular es requerido (mín. 2 caracteres)
-        </ion-text> -->
+        <ion-text color="danger" *ngIf="isInvalidField('telefono')">
+            El celular es invalido.
+        </ion-text>
 
         <ion-item>
             <ion-label position="floating">Email</ion-label>
             <ion-input type="email" formControlName="email"></ion-input>
         </ion-item>
-        <!-- <ion-text color="danger"> Ingrese un email válido </ion-text> -->
+        <ion-text color="danger" *ngIf="isInvalidField('email')">
+            Ingrese un email válido
+        </ion-text>
 
         <ion-item>
             <ion-label position="floating">Contraseña</ion-label>
             <ion-input type="password" formControlName="password"></ion-input>
         </ion-item>
 
-        <!-- <ion-text color="danger">
+        <ion-text color="danger" *ngIf="isInvalidField('password')">
             La contraseña debe tener al menos 6 caracteres
-        </ion-text> -->
+        </ion-text>
 
         <ion-item>
             <ion-label position="floating">Repetir Contraseña</ion-label>
@@ -70,7 +74,12 @@
             ></ion-input>
         </ion-item>
 
-        <!-- <ion-text color="danger"> Las contraseñas no coinciden </ion-text> -->
+        <ion-text
+            color="danger"
+            *ngIf="isInvalidField('password_confirmation')"
+        >
+            Las contraseñas no coinciden
+        </ion-text>
 
         <ion-button
             expand="full"
