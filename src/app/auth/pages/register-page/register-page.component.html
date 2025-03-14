@@ -1,3 +1,84 @@
-<p>
-  register-page works!
-</p>
+<ion-header>
+    <ion-toolbar>
+        <ion-title>Registrarse</ion-title>
+        <ion-img
+            src="assets/logo.png"
+            style="width: 40px; margin-left: 10px"
+        ></ion-img>
+    </ion-toolbar>
+    <ion-toolbar>
+        <ion-note
+            style="
+                text-align: center;
+                width: 100%;
+                display: block;
+                font-size: 14px;
+                color: black;
+            "
+        >
+            Municipalidad Distrital Andrés Avelino Cáceres
+        </ion-note>
+    </ion-toolbar>
+</ion-header>
+
+<ion-content class="ion-padding">
+    <form [formGroup]="registerForm" (ngSubmit)="submitForm()">
+        <ion-item>
+            <ion-label position="floating">Nombres</ion-label>
+            <ion-input formControlName="nombre"></ion-input>
+        </ion-item>
+        <!-- <ion-text color="danger">
+            Nombre es requerido (mín. 2 caracteres)
+        </ion-text> -->
+
+        <ion-item>
+            <ion-label position="floating">Apellidos</ion-label>
+            <ion-input formControlName="apellido"></ion-input>
+        </ion-item>
+        <!-- <ion-text color="danger">
+            Apellido es requerido (mín. 2 caracteres)
+        </ion-text> -->
+
+        <ion-item>
+            <ion-label position="floating">Celular</ion-label>
+            <ion-input formControlName="telefono"></ion-input>
+        </ion-item>
+        <!-- <ion-text color="danger">
+            Celular es requerido (mín. 2 caracteres)
+        </ion-text> -->
+
+        <ion-item>
+            <ion-label position="floating">Email</ion-label>
+            <ion-input type="email" formControlName="email"></ion-input>
+        </ion-item>
+        <!-- <ion-text color="danger"> Ingrese un email válido </ion-text> -->
+
+        <ion-item>
+            <ion-label position="floating">Contraseña</ion-label>
+            <ion-input type="password" formControlName="password"></ion-input>
+        </ion-item>
+
+        <!-- <ion-text color="danger">
+            La contraseña debe tener al menos 6 caracteres
+        </ion-text> -->
+
+        <ion-item>
+            <ion-label position="floating">Repetir Contraseña</ion-label>
+            <ion-input
+                type="password"
+                formControlName="password_confirmation"
+            ></ion-input>
+        </ion-item>
+
+        <!-- <ion-text color="danger"> Las contraseñas no coinciden </ion-text> -->
+
+        <ion-button
+            expand="full"
+            color="success"
+            type="submit"
+            [disabled]="registerForm.invalid"
+        >
+            Registrarse
+        </ion-button>
+    </form>
+</ion-content>
