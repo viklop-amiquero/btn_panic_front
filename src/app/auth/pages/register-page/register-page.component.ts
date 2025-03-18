@@ -6,6 +6,9 @@ import {
     ValidationErrors,
     Validators,
 } from '@angular/forms'
+import { CustomerRegister } from '../../interfaces/customer.interface'
+import { AuthService } from '../../services/auth.service'
+import { ToastService } from 'src/app/shared/services/toast.service'
 
 @Component({
     selector: 'app-register-page',
@@ -16,11 +19,14 @@ import {
 export class RegisterPageComponent implements OnInit {
     private _fb: FormBuilder = new FormBuilder()
 
-    constructor() {}
+    constructor(
+        private _authService: AuthService,
+        private _toast: ToastService
+    ) {}
 
     public registerForm: FormGroup = this._fb.group(
         {
-            nombre: [
+            name: [
                 '',
                 [
                     Validators.required,
@@ -34,6 +40,7 @@ export class RegisterPageComponent implements OnInit {
                     Validators.pattern('^[A-Za-zÁÉÍÓÚáéíóúÑñ\\s]+$'),
                 ],
             ],
+            direccion_domicilio: ['', [Validators.required]],
             email: ['', [Validators.required, Validators.email]],
             telefono: [
                 '',
@@ -65,11 +72,11 @@ export class RegisterPageComponent implements OnInit {
             const fieldValue2 = formGroup.get(field2)?.value
 
             if (fieldValue1 !== fieldValue2) {
-                console.log({
-                    condicional: true,
-                    field1: fieldValue1,
-                    field2: fieldValue2,
-                })
+                // console.log({
+                //     condicional: true,
+                //     field1: fieldValue1,
+                //     field2: fieldValue2,
+                // })
 
                 formGroup.get(field2)?.setErrors({ notEqual: true })
 
@@ -89,5 +96,40 @@ export class RegisterPageComponent implements OnInit {
         )
     }
 
-    submitForm() {}
+    getCurrentCustomer(): CustomerRegister {
+        const customer = this.registerForm.value
+        return customer
+    }
+
+    onSubmit(): void {
+        if (this.registerForm.invalid) {
+            this.registerForm.markAllAsTouched()
+            return
+        }
+        this._authService.addCustomer(this.getCurrentCustomer()).subscribe({
+            next: (resp) => {
+                console.log(resp)
+                this._toast.showToast(`${resp.message}`, 'success')
+            },
+            error: (err) => {
+                console.log(err.message)
+                if (err.error && err.error.errors) {
+                    const errorMessages = Object.values(err.error.errors)
+                        .flat()
+                        .join('\n')
+
+                    this._toast.showToast(errorMessages, 'danger')
+                } else {
+                    this._toast.showToast(
+                        'Ocurrió un error inesperado.',
+                        'danger'
+                    )
+                }
+            },
+        })
+
+        // redirigir
+
+        // console.log(this.getCurrentCustomer())
+    }
 }
