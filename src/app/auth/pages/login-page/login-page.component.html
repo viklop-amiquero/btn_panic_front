@@ -1,3 +1,31 @@
-<p>
-  login-page works!
-</p>
+<header-auth [title]="title"></header-auth>
+
+<ion-content class="ion-padding">
+    <form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
+        <ion-item>
+            <ion-label position="floating">Email</ion-label>
+            <ion-input type="email" formControlName="email"></ion-input>
+        </ion-item>
+        <ion-text color="danger" *ngIf="isInvalidField('email')">
+            Ingrese un email válido
+        </ion-text>
+
+        <ion-item>
+            <ion-label position="floating">Contraseña</ion-label>
+            <ion-input type="password" formControlName="password"></ion-input>
+        </ion-item>
+
+        <ion-text color="danger" *ngIf="isInvalidField('password')">
+            La contraseña debe tener al menos 6 caracteres
+        </ion-text>
+
+        <ion-button
+            expand="full"
+            color="success"
+            type="submit"
+            [disabled]="loginForm.invalid"
+        >
+            Registrarse
+        </ion-button>
+    </form>
+</ion-content>

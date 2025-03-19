@@ -1,11 +1,5 @@
 import { Component, OnInit } from '@angular/core'
-import {
-    AbstractControl,
-    FormBuilder,
-    FormGroup,
-    ValidationErrors,
-    Validators,
-} from '@angular/forms'
+import { FormBuilder, FormGroup, Validators } from '@angular/forms'
 import { CustomerRegister } from '../../interfaces/customer.interface'
 import { AuthService } from '../../services/auth.service'
 import { ToastService } from 'src/app/shared/services/toast.service'
@@ -18,6 +12,7 @@ import { ValidatorsService } from 'src/app/shared/services/validators.service'
     styleUrls: ['./register-page.component.scss'],
 })
 export class RegisterPageComponent implements OnInit {
+    public title: string = 'registrarse'
     private _fb: FormBuilder = new FormBuilder()
 
     constructor(

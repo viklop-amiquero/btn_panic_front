@@ -1,26 +1,4 @@
-<ion-header>
-    <ion-toolbar>
-        <ion-img
-            src="assets/logo.png"
-            style="width: 60px; margin-left: 10px"
-        ></ion-img>
-        <ion-title style="text-align: center">Registrarse</ion-title>
-    </ion-toolbar>
-    <ion-toolbar>
-        <ion-note
-            style="
-                text-align: center;
-                font-weight: bold;
-                width: 100%;
-                display: block;
-                font-size: 14px;
-                color: black;
-            "
-        >
-            Municipalidad Distrital Andrés Avelino Cáceres
-        </ion-note>
-    </ion-toolbar>
-</ion-header>
+<header-auth [title]="title"></header-auth>
 
 <ion-content class="ion-padding">
     <form [formGroup]="registerForm" (ngSubmit)="onSubmit()">

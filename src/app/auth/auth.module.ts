@@ -7,9 +7,14 @@ import { LoginPageComponent } from './pages/login-page/login-page.component'
 import { ReactiveFormsModule } from '@angular/forms'
 
 import { IonicModule } from '@ionic/angular'
+import { HeaderAuthComponent } from './components/header-auth/header-auth.component'
 
 @NgModule({
-    declarations: [RegisterPageComponent, LoginPageComponent],
+    declarations: [
+        RegisterPageComponent,
+        LoginPageComponent,
+        HeaderAuthComponent,
+    ],
     imports: [
         CommonModule,
         AuthRoutingModule,
