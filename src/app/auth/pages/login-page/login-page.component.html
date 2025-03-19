@@ -4,10 +4,10 @@
     <form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
         <ion-item>
             <ion-label position="floating">Email</ion-label>
-            <ion-input type="email" formControlName="email"></ion-input>
+            <ion-input type="username" formControlName="username"></ion-input>
         </ion-item>
-        <ion-text color="danger" *ngIf="isInvalidField('email')">
-            Ingrese un email válido
+        <ion-text color="danger" *ngIf="isInvalidField('username')">
+            Ingrese un email válido.
         </ion-text>
 
         <ion-item>
@@ -16,7 +16,7 @@
         </ion-item>
 
         <ion-text color="danger" *ngIf="isInvalidField('password')">
-            La contraseña debe tener al menos 6 caracteres
+            Campo obligatorio.
         </ion-text>
 
         <ion-button
