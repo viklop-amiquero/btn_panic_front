@@ -32,22 +32,37 @@ export class RegisterPageComponent implements OnInit {
                 '',
                 [
                     Validators.required,
-                    Validators.pattern('^[A-Za-zÁÉÍÓÚáéíóúÑñ\\s]+$'),
+                    Validators.pattern(this._validator.namePattern),
                 ],
             ],
             apellido: [
                 '',
                 [
                     Validators.required,
-                    Validators.pattern('^[A-Za-zÁÉÍÓÚáéíóúÑñ\\s]+$'),
+                    Validators.pattern(this._validator.namePattern),
                 ],
             ],
             direccion_domicilio: ['', [Validators.required]],
-            dni: ['', [Validators.required, Validators.pattern('^[0-9]{8}$')]],
-            email: ['', [Validators.required, Validators.email]],
+            dni: [
+                '',
+                [
+                    Validators.required,
+                    Validators.pattern(this._validator.dniPattern),
+                ],
+            ],
+            email: [
+                '',
+                [
+                    Validators.required,
+                    Validators.pattern(this._validator.emailPattern),
+                ],
+            ],
             telefono: [
                 '',
-                [Validators.required, Validators.pattern('^[0-9]{9}$')],
+                [
+                    Validators.required,
+                    Validators.pattern(this._validator.celularPattern),
+                ],
             ],
             password: [
                 '',

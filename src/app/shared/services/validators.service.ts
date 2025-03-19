@@ -5,6 +5,10 @@ import { AbstractControl, ValidationErrors, FormGroup } from '@angular/forms'
     providedIn: 'root',
 })
 export class ValidatorsService {
+    public namePattern: string = '^[A-Za-zÁÉÍÓÚáéíóúÑñ\\s]+$'
+    public emailPattern: string = '^[a-z0-9._%+-]+@[a-z0-9.-]+\\.[a-z]{2,4}$'
+    public dniPattern: string = '^[0-9]{8}$'
+    public celularPattern: string = '^[0-9]{9}$'
     constructor() {}
 
     public isFieldOneEqualFieldTwo(field1: string, field2: string) {
