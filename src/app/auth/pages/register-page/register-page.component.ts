@@ -9,6 +9,7 @@ import {
 import { CustomerRegister } from '../../interfaces/customer.interface'
 import { AuthService } from '../../services/auth.service'
 import { ToastService } from 'src/app/shared/services/toast.service'
+import { ValidatorsService } from 'src/app/shared/services/validators.service'
 
 @Component({
     selector: 'app-register-page',
@@ -21,7 +22,8 @@ export class RegisterPageComponent implements OnInit {
 
     constructor(
         private _authService: AuthService,
-        private _toast: ToastService
+        private _toast: ToastService,
+        private _validator: ValidatorsService
     ) {}
 
     public registerForm: FormGroup = this._fb.group(
@@ -58,7 +60,7 @@ export class RegisterPageComponent implements OnInit {
             password_confirmation: ['', [Validators.required]],
         },
         {
-            validators: this.isFieldOneEqualFieldTwo(
+            validators: this._validator.isFieldOneEqualFieldTwo(
                 'password',
                 'password_confirmation'
             ),
@@ -67,34 +69,8 @@ export class RegisterPageComponent implements OnInit {
 
     ngOnInit() {}
 
-    public isFieldOneEqualFieldTwo(field1: string, field2: string) {
-        return (formGroup: AbstractControl): ValidationErrors | null => {
-            const fieldValue1 = formGroup.get(field1)?.value
-            const fieldValue2 = formGroup.get(field2)?.value
-
-            if (fieldValue1 !== fieldValue2) {
-                // console.log({
-                //     condicional: true,
-                //     field1: fieldValue1,
-                //     field2: fieldValue2,
-                // })
-
-                formGroup.get(field2)?.setErrors({ notEqual: true })
-
-                return { notEqual: true }
-            }
-
-            formGroup.get(field2)?.setErrors(null)
-
-            return null
-        }
-    }
-
     isInvalidField(field: string): boolean | null {
-        return (
-            this.registerForm.controls[field].errors &&
-            this.registerForm.controls[field].touched
-        )
+        return this._validator.isInvalidField(this.registerForm, field)
     }
 
     getCurrentCustomer(): CustomerRegister {
