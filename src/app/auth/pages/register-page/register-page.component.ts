@@ -41,6 +41,7 @@ export class RegisterPageComponent implements OnInit {
                 ],
             ],
             direccion_domicilio: ['', [Validators.required]],
+            dni: ['', [Validators.required, Validators.pattern('^[0-9]{8}$')]],
             email: ['', [Validators.required, Validators.email]],
             telefono: [
                 '',
@@ -112,19 +113,20 @@ export class RegisterPageComponent implements OnInit {
                 this._toast.showToast(`${resp.message}`, 'success')
             },
             error: (err) => {
-                console.log(err.message)
-                if (err.error && err.error.errors) {
-                    const errorMessages = Object.values(err.error.errors)
-                        .flat()
-                        .join('\n')
-
-                    this._toast.showToast(errorMessages, 'danger')
-                } else {
+                // console.log(err.message)
+                if (!err.error && !err.error.errors) {
                     this._toast.showToast(
                         'Ocurrió un error inesperado.',
                         'danger'
                     )
                 }
+
+                const errorMessages = Object.values(err.error.errors).flat()
+                errorMessages.forEach((message, index) => {
+                    setTimeout(() => {
+                        this._toast.showToast(`${message}`, 'danger')
+                    }, index * 1500)
+                })
             },
         })
 

@@ -38,7 +38,7 @@
             <ion-input formControlName="apellido"></ion-input>
         </ion-item>
         <ion-text color="danger" *ngIf="isInvalidField('apellido')">
-            El apellido es invalido
+            El apellido es inválido
         </ion-text>
 
         <ion-item>
@@ -50,11 +50,21 @@
         </ion-text>
 
         <ion-item>
+            <ion-label position="floating">DNI</ion-label>
+            <ion-input formControlName="dni"></ion-input>
+        </ion-item>
+
+        <ion-text color="danger" *ngIf="isInvalidField('dni')">
+            El DNI es inválido.
+        </ion-text>
+
+        <ion-item>
             <ion-label position="floating">Celular</ion-label>
             <ion-input formControlName="telefono"></ion-input>
         </ion-item>
+
         <ion-text color="danger" *ngIf="isInvalidField('telefono')">
-            El celular es invalido.
+            El celular es inválido.
         </ion-text>
 
         <ion-item>
