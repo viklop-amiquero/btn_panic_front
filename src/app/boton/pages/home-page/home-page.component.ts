@@ -5,6 +5,7 @@ import { BotonService } from '../../services/boton.service'
 import { ToastService } from 'src/app/shared/services/toast.service'
 import { Router } from '@angular/router'
 import { TokenService } from '../../services/token.service'
+import { Categoria } from '../../interfaces/categoria.interface'
 
 @Component({
     selector: 'app-home-page',
@@ -15,7 +16,7 @@ import { TokenService } from '../../services/token.service'
 export class HomePageComponent implements OnInit {
     private _fb: FormBuilder = new FormBuilder()
     private _token!: string
-
+    public categorias: Categoria[] = []
     constructor(
         private _botonService: BotonService,
         private _toastService: ToastService,
@@ -25,7 +26,7 @@ export class HomePageComponent implements OnInit {
 
     async ngOnInit() {
         this._token = await this._tokenService.loadToken()
-        this.categorias
+        this.getCategorias()
     }
 
     public homeForm: FormGroup = this._fb.group({
@@ -33,7 +34,7 @@ export class HomePageComponent implements OnInit {
         descripcion: ['', Validators.required],
     })
 
-    get categorias() {
+    getCategorias() {
         if (!this._token) {
             this._toastService.showToast(
                 'Sesión expirada. Inicie sesión nuevamente.',
@@ -42,9 +43,11 @@ export class HomePageComponent implements OnInit {
             this._router.navigate(['/auth'])
             return
         }
-        return this._botonService.getCategories(this._token).subscribe({
+        this._botonService.getCategories(this._token).subscribe({
             next: ({ data }) => {
+                this.categorias = data
                 console.log('Categorías:', data)
+                // return data
                 // this._toastService.showToast()
             },
             error: (err) => {

@@ -13,12 +13,11 @@
         <ion-item>
             <ion-label position="floating">Tipo de Incidencia</ion-label>
             <ion-select formControlName="categoria_id">
-                <ion-select-option value="robo">Robo</ion-select-option>
-                <ion-select-option value="accidente"
-                    >Accidente</ion-select-option
+                <ion-select-option
+                    *ngFor="let categoria of categorias"
+                    [value]="categoria.id"
+                    >{{ categoria.nombre }}</ion-select-option
                 >
-                <ion-select-option value="incendio">Incendio</ion-select-option>
-                <ion-select-option value="otro">Otro</ion-select-option>
             </ion-select>
         </ion-item>
 
