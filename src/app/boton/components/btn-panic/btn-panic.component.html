@@ -1,0 +1,16 @@
+<div class="panic-container">
+    <button
+        class="panic-button"
+        [class.activated]="isActivated"
+        (touchstart)="startPress()"
+        (touchend)="endPress()"
+        (mousedown)="startPress()"
+        (mouseup)="endPress()"
+    >
+        <br />
+        <p class="txtboton">
+            {{ txtBoton }}
+        </p>
+        <br />
+    </button>
+</div>

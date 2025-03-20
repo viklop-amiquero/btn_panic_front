@@ -1,0 +1,39 @@
+.panic-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+}
+    // .txtboton{
+    //     display: flex;
+    //     justify-content: center;
+    //     align-items: center;
+    // }
+
+.panic-button {
+    background: #800000; // Rojo apagado al inicio
+    color: white;
+    font-size: 24px;
+    font-weight: bold;
+    border: none;
+    border-radius: 50%;
+    width: 200px;
+    height: 200px;
+    box-shadow: 0 0 10px rgba(128, 0, 0, 0.8);
+    text-transform: uppercase;
+    transition: transform 0.2s, box-shadow 0.2s, background 0.5s;
+
+    &:hover {
+        transform: scale(1.1);
+        box-shadow: 0 0 15px rgba(128, 0, 0, 1);
+    }
+
+    &:active {
+        transform: scale(0.9);
+    }
+
+    &.activated {
+        background: #ff0000; // Rojo intenso cuando está encendido
+        box-shadow: 0 0 30px rgba(255, 0, 0, 1);
+    }
+}
