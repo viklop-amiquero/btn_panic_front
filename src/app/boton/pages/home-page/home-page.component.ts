@@ -1,6 +1,9 @@
 import { Component, OnInit } from '@angular/core'
 import { FormBuilder, FormGroup, Validators } from '@angular/forms'
 import { Preferences } from '@capacitor/preferences'
+import { BotonService } from '../../services/boton.service'
+import { ToastService } from 'src/app/shared/services/toast.service'
+import { Router } from '@angular/router'
 
 @Component({
     selector: 'app-home-page',
@@ -10,27 +13,61 @@ import { Preferences } from '@capacitor/preferences'
 })
 export class HomePageComponent implements OnInit {
     private _fb: FormBuilder = new FormBuilder()
-    private token!: string
+    private _token!: string
 
-    constructor() {}
+    constructor(
+        private _botonService: BotonService,
+        private _toastService: ToastService,
+        private _router: Router
+    ) {}
 
-    public btnForm: FormGroup = this._fb.group({
+    async ngOnInit() {
+        await this.loadToken()
+        this.categorias
+    }
+
+    public homeForm: FormGroup = this._fb.group({
         categoria_id: ['', Validators.required],
         descripcion: ['', Validators.required],
     })
 
-    // onSubmit(){
-
-    // }
-
     async loadToken() {
         const { value } = await Preferences.get({ key: 'authToken' })
-        this.token = value || ''
+        this._token = value || ''
     }
 
-    ngOnInit() {
-        this.loadToken().then(() => {
-            console.log(this.token)
+    async removeToken() {
+        await Preferences.remove({ key: 'authToken' })
+        console.log('Token eliminado')
+    }
+
+    get categorias() {
+        if (!this._token) {
+            this._toastService.showToast(
+                'Sesión expirada. Inicie sesión nuevamente.',
+                'warning'
+            )
+            this._router.navigate(['/auth'])
+            return
+        }
+        return this._botonService.getCategories(this._token).subscribe({
+            next: ({ data }) => {
+                console.log('Categorías:', data)
+                // this._toastService.showToast()
+            },
+            error: (err) => {
+                this._toastService.showToast(
+                    'App en mantenimiento, regrese más tarde.',
+                    'danger'
+                )
+                setTimeout(async () => {
+                    await this.removeToken()
+                    this._router.navigate(['/auth'])
+                }, 1000)
+                // console.error('Error al obtener categorías:', err)
+            },
         })
     }
+
+    onSubmit() {}
 }
