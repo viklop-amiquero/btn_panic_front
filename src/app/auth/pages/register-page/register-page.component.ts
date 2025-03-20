@@ -122,7 +122,7 @@ export class RegisterPageComponent implements OnInit {
                 if (!err.error || !err.error.errors) {
                     this._toast.showToast(
                         'Ocurrió un error inesperado, por favor intentelo más tarde.',
-                        'danger'
+                        'warning'
                     )
                     return
                 }

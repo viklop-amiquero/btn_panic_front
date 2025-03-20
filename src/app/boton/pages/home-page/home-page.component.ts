@@ -4,6 +4,7 @@ import { Preferences } from '@capacitor/preferences'
 import { BotonService } from '../../services/boton.service'
 import { ToastService } from 'src/app/shared/services/toast.service'
 import { Router } from '@angular/router'
+import { TokenService } from '../../services/token.service'
 
 @Component({
     selector: 'app-home-page',
@@ -18,11 +19,12 @@ export class HomePageComponent implements OnInit {
     constructor(
         private _botonService: BotonService,
         private _toastService: ToastService,
-        private _router: Router
+        private _router: Router,
+        private _tokenService: TokenService
     ) {}
 
     async ngOnInit() {
-        await this.loadToken()
+        this._token = await this._tokenService.loadToken()
         this.categorias
     }
 
@@ -30,16 +32,6 @@ export class HomePageComponent implements OnInit {
         categoria_id: ['', Validators.required],
         descripcion: ['', Validators.required],
     })
-
-    async loadToken() {
-        const { value } = await Preferences.get({ key: 'authToken' })
-        this._token = value || ''
-    }
-
-    async removeToken() {
-        await Preferences.remove({ key: 'authToken' })
-        console.log('Token eliminado')
-    }
 
     get categorias() {
         if (!this._token) {
@@ -58,10 +50,10 @@ export class HomePageComponent implements OnInit {
             error: (err) => {
                 this._toastService.showToast(
                     'App en mantenimiento, regrese más tarde.',
-                    'danger'
+                    'warning'
                 )
                 setTimeout(async () => {
-                    await this.removeToken()
+                    await this._tokenService.removeToken()
                     this._router.navigate(['/auth'])
                 }, 1000)
                 // console.error('Error al obtener categorías:', err)
