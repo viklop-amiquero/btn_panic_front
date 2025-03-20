@@ -7,6 +7,7 @@ import {
     LoginSuccess,
 } from '../../interfaces/login.interface'
 import { ToastService } from 'src/app/shared/services/toast.service'
+import { Preferences } from '@capacitor/preferences'
 
 @Component({
     selector: 'app-login-page',
@@ -45,15 +46,15 @@ export class LoginPageComponent implements OnInit {
     isInvalidField(field: string): boolean | null {
         return this._validator.isInvalidField(this.loginForm, field)
     }
-
-    onSubmit(): void {
+    async onSubmit(): Promise<void> {
         if (this.loginForm.invalid) {
             this.loginForm.markAllAsTouched()
             return
         }
 
         this._authService.login(this.getCurrentCredentials()).subscribe({
-            next: (resp: LoginSuccess) => {
+            next: async (resp: LoginSuccess) => {
+                // ⬅️ Añadir async aquí
                 if (!resp.token) {
                     this._toast.showToast(
                         'Respuesta inesperada del servidor.',
@@ -61,12 +62,15 @@ export class LoginPageComponent implements OnInit {
                     )
                     return
                 }
+
                 this._toast.showToast('Inicio de sesión exitoso', 'success')
-                // Redirigir a dashboard
+
+                // Almacenar el token de manera correcta
+                await Preferences.set({ key: 'authToken', value: resp.token })
+
+                // Redirigir a dashboard (puedes agregar aquí tu lógica de navegación)
             },
             error: (err) => {
-                // console.log(err)
-
                 if (!err.error || !err.error.errors) {
                     this._toast.showToast(
                         'Ocurrió un error inesperado, por favor intentelo más tarde.',
@@ -84,6 +88,48 @@ export class LoginPageComponent implements OnInit {
             },
         })
     }
+
+    // onSubmit(): void {
+    //     if (this.loginForm.invalid) {
+    //         this.loginForm.markAllAsTouched()
+    //         return
+    //     }
+
+    //     this._authService.login(this.getCurrentCredentials()).subscribe({
+    //         next: (resp: LoginSuccess) => {
+    //             if (!resp.token) {
+    //                 this._toast.showToast(
+    //                     'Respuesta inesperada del servidor.',
+    //                     'danger'
+    //                 )
+    //                 return
+    //             }
+    //             this._toast.showToast('Inicio de sesión exitoso', 'success')
+
+    //             // Almacenar el token
+    //             await  Preferences.set({ key: 'authToken', value: resp.token })
+    //             // Redirigir a dashboard
+    //         },
+    //         error: (err) => {
+    //             // console.log(err)
+
+    //             if (!err.error || !err.error.errors) {
+    //                 this._toast.showToast(
+    //                     'Ocurrió un error inesperado, por favor intentelo más tarde.',
+    //                     'danger'
+    //                 )
+    //                 return
+    //             }
+
+    //             const errorMessages = Object.values(err.error.errors).flat()
+    //             errorMessages.forEach((message, index) => {
+    //                 setTimeout(() => {
+    //                     this._toast.showToast(`${message}`, 'danger')
+    //                 }, index * 1500)
+    //             })
+    //         },
+    //     })
+    // }
 
     // onSubmit(): void {
     //     if (this.loginForm.invalid) {
