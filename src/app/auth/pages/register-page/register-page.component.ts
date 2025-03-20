@@ -4,6 +4,8 @@ import { CustomerRegister } from '../../interfaces/customer.interface'
 import { AuthService } from '../../services/auth.service'
 import { ToastService } from 'src/app/shared/services/toast.service'
 import { ValidatorsService } from 'src/app/shared/services/validators.service'
+import { Router } from '@angular/router'
+import { IonRouterOutlet } from '@ionic/angular'
 
 @Component({
     selector: 'app-register-page',
@@ -18,7 +20,8 @@ export class RegisterPageComponent implements OnInit {
     constructor(
         private _authService: AuthService,
         private _toast: ToastService,
-        private _validator: ValidatorsService
+        private _validator: ValidatorsService,
+        private _router: Router
     ) {}
 
     public registerForm: FormGroup = this._fb.group(
@@ -97,6 +100,11 @@ export class RegisterPageComponent implements OnInit {
             next: (resp) => {
                 console.log(resp)
                 this._toast.showToast(`${resp.message}`, 'success')
+
+                // redirigir
+                // document.activeElement?.blur()
+
+                this._router.navigate(['/login'])
             },
             error: (err) => {
                 // console.log(err)

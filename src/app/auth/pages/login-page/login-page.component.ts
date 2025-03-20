@@ -7,8 +7,9 @@ import {
     LoginSuccess,
 } from '../../interfaces/login.interface'
 import { ToastService } from 'src/app/shared/services/toast.service'
-import { Preferences } from '@capacitor/preferences'
+import { Router } from '@angular/router'
 
+import { Preferences } from '@capacitor/preferences'
 @Component({
     selector: 'app-login-page',
     standalone: false,
@@ -22,7 +23,8 @@ export class LoginPageComponent implements OnInit {
     constructor(
         private _validator: ValidatorsService,
         private _toast: ToastService,
-        private _authService: AuthService
+        private _authService: AuthService,
+        private _router: Router
     ) {}
 
     public loginForm: FormGroup = this._fb.group({
@@ -63,12 +65,13 @@ export class LoginPageComponent implements OnInit {
                     return
                 }
 
-                this._toast.showToast('Inicio de sesión exitoso', 'success')
+                // this._toast.showToast('Inicio de sesión exitoso', 'success')
 
                 // Almacenar el token de manera correcta
                 await Preferences.set({ key: 'authToken', value: resp.token })
 
-                // Redirigir a dashboard (puedes agregar aquí tu lógica de navegación)
+                // Redirigir a home
+                this._router.navigate(['/home'])
             },
             error: (err) => {
                 if (!err.error || !err.error.errors) {
