@@ -99,12 +99,14 @@ export class RegisterPageComponent implements OnInit {
                 this._toast.showToast(`${resp.message}`, 'success')
             },
             error: (err) => {
-                // console.log(err.message)
-                if (!err.error && !err.error.errors) {
+                // console.log(err)
+
+                if (!err.error || !err.error.errors) {
                     this._toast.showToast(
-                        'Ocurrió un error inesperado.',
+                        'Ocurrió un error inesperado, por favor intentelo más tarde.',
                         'danger'
                     )
+                    return
                 }
 
                 const errorMessages = Object.values(err.error.errors).flat()
@@ -115,9 +117,5 @@ export class RegisterPageComponent implements OnInit {
                 })
             },
         })
-
-        // redirigir
-
-        // console.log(this.getCurrentCustomer())
     }
 }
