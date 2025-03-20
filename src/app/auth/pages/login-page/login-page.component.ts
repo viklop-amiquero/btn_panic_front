@@ -48,10 +48,21 @@ export class LoginPageComponent implements OnInit {
     isInvalidField(field: string): boolean | null {
         return this._validator.isInvalidField(this.loginForm, field)
     }
-    async onSubmit(): Promise<void> {
+
+    async onSubmit(event: Event): Promise<void> {
         if (this.loginForm.invalid) {
             this.loginForm.markAllAsTouched()
             return
+        }
+
+        // Quitar el foco del botón
+        if (event.target instanceof HTMLElement) {
+            const submitButton = event.target.querySelector(
+                'ion-button[type="submit"]'
+            )
+            if (submitButton instanceof HTMLElement) {
+                submitButton.blur()
+            }
         }
 
         this._authService.login(this.getCurrentCredentials()).subscribe({

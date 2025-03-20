@@ -5,7 +5,6 @@ import { AuthService } from '../../services/auth.service'
 import { ToastService } from 'src/app/shared/services/toast.service'
 import { ValidatorsService } from 'src/app/shared/services/validators.service'
 import { Router } from '@angular/router'
-import { IonRouterOutlet } from '@ionic/angular'
 
 @Component({
     selector: 'app-register-page',
@@ -91,11 +90,22 @@ export class RegisterPageComponent implements OnInit {
         return customer
     }
 
-    onSubmit(): void {
+    onSubmit(event: Event): void {
         if (this.registerForm.invalid) {
             this.registerForm.markAllAsTouched()
             return
         }
+
+        // Quitar el foco del botón
+        if (event.target instanceof HTMLElement) {
+            const submitButton = event.target.querySelector(
+                'ion-button[type="submit"]'
+            )
+            if (submitButton instanceof HTMLElement) {
+                submitButton.blur()
+            }
+        }
+
         this._authService.addCustomer(this.getCurrentCustomer()).subscribe({
             next: (resp) => {
                 console.log(resp)
