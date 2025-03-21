@@ -28,20 +28,7 @@ export class HomePageComponent implements OnInit {
         this._token = await this._tokenService.loadToken()
         this.getCategorias()
 
-        // const observer = new MutationObserver(() => {
-        //     const outlet = document.querySelector('ion-router-outlet')
-        //     if (outlet?.getAttribute('aria-hidden') === 'true') {
-        //         outlet.removeAttribute('aria-hidden')
-        //     }
-        // })
-
-        // observer.observe(document.body, {
-        //     attributes: true,
-        //     subtree: true,
-        //     attributeFilter: ['aria-hidden'],
-        // })
-
-        // solucion de los botones cancel ok
+        // solucion are-hidden
         const observer = new MutationObserver((mutations) => {
             const outlet = document.querySelector('ion-router-outlet')
             if (outlet?.getAttribute('aria-hidden') === 'true') {
