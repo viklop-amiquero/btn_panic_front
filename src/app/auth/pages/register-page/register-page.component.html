@@ -2,6 +2,8 @@
 
 <ion-content class="ion-padding">
     <form [formGroup]="registerForm" (ngSubmit)="onSubmit($event)">
+        <p class="titulo">{{ title | titlecase }}</p>
+
         <ion-item>
             <ion-label position="floating">Nombres</ion-label>
             <ion-input formControlName="name"></ion-input>

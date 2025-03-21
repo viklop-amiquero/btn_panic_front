@@ -1,6 +1,8 @@
 <header-auth [title]="title"></header-auth>
 
 <ion-content class="ion-padding">
+    <p class="titulo">{{ title | titlecase }}</p>
+
     <form [formGroup]="loginForm" (ngSubmit)="onSubmit($event)">
         <ion-item>
             <ion-label position="floating">Email</ion-label>

@@ -1,25 +1,20 @@
 <ion-header>
     <ion-toolbar>
-        <ion-img
-            src="assets/logo.png"
-            style="width: 60px; margin-left: 10px"
-        ></ion-img>
-        <ion-title style="text-align: center">{{
-            title | titlecase
-        }}</ion-title>
-    </ion-toolbar>
-    <ion-toolbar>
-        <ion-note
-            style="
-                text-align: center;
-                font-weight: bold;
-                width: 100%;
-                display: block;
-                font-size: 14px;
-                color: black;
-            "
-        >
-            Municipalidad Distrital Andrés Avelino Cáceres
-        </ion-note>
+        <div class="flex-hedaer">
+            <ion-img src="assets/logo.png" style="width: 60px"></ion-img>
+            <ion-note
+                style="
+                    text-align: center;
+                    font-weight: bold;
+                    width: 100%;
+                    display: block;
+                    font-size: 14px;
+                    color: black;
+                "
+            >
+                Municipalidad Distrital Andrés Avelino Cáceres
+            </ion-note>
+        </div>
+        <!-- <p class="titulo">{{ title | titlecase }}</p> -->
     </ion-toolbar>
 </ion-header>
