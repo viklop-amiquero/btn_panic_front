@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core'
 import { FormBuilder, FormGroup, Validators } from '@angular/forms'
-import { Preferences } from '@capacitor/preferences'
 import { BotonService } from '../../services/boton.service'
 import { ToastService } from 'src/app/shared/services/toast.service'
 import { Router } from '@angular/router'
@@ -73,7 +72,7 @@ export class HomePageComponent implements OnInit {
         this._botonService.getCategories(this._token).subscribe({
             next: ({ data }) => {
                 this.categorias = data
-                console.log('Categorías:', data)
+                // console.log('Categorías:', data)
                 // return data
                 // this._toastService.showToast()
             },

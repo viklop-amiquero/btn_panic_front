@@ -1,10 +1,12 @@
 import { NgModule } from '@angular/core'
 import { CommonModule } from '@angular/common'
 import { IonicModule } from '@ionic/angular'
+import { HeaderComponent } from './components/header/header.component'
+import { FooterComponent } from './components/footer/footer.component'
 
 @NgModule({
-    declarations: [],
+    declarations: [HeaderComponent, FooterComponent],
     imports: [CommonModule, IonicModule],
-    exports: [],
+    exports: [HeaderComponent, FooterComponent],
 })
 export class SharedModule {}
