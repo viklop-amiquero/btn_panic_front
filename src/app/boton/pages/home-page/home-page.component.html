@@ -12,6 +12,7 @@
     <form [formGroup]="homeForm" (ngSubmit)="onSubmit()">
         <ion-item>
             <ion-label position="floating">Tipo de Incidencia</ion-label>
+
             <ion-select formControlName="categoria_id">
                 <ion-select-option
                     *ngFor="let categoria of categorias"

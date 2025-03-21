@@ -27,6 +27,46 @@ export class HomePageComponent implements OnInit {
     async ngOnInit() {
         this._token = await this._tokenService.loadToken()
         this.getCategorias()
+
+        // const observer = new MutationObserver(() => {
+        //     const outlet = document.querySelector('ion-router-outlet')
+        //     if (outlet?.getAttribute('aria-hidden') === 'true') {
+        //         outlet.removeAttribute('aria-hidden')
+        //     }
+        // })
+
+        // observer.observe(document.body, {
+        //     attributes: true,
+        //     subtree: true,
+        //     attributeFilter: ['aria-hidden'],
+        // })
+
+        // solucion de los botones cancel ok
+        const observer = new MutationObserver((mutations) => {
+            const outlet = document.querySelector('ion-router-outlet')
+            if (outlet?.getAttribute('aria-hidden') === 'true') {
+                outlet.removeAttribute('aria-hidden')
+            }
+            mutations.forEach((mutation) => {
+                const target = mutation.target as HTMLElement
+
+                // Si el elemento afectado es un ion-alert (el modal del select)
+                if (
+                    target.tagName.toLowerCase() === 'ion-alert' &&
+                    target.getAttribute('aria-hidden') === 'true'
+                ) {
+                    target.removeAttribute('aria-hidden') // Habilitamos la visibilidad
+                    target.removeAttribute('inert') // Permitimos interacción
+                }
+            })
+        })
+
+        // Observamos cambios en el modal del select
+        observer.observe(document.body, {
+            attributes: true,
+            subtree: true,
+            attributeFilter: ['aria-hidden'],
+        })
     }
 
     public homeForm: FormGroup = this._fb.group({
