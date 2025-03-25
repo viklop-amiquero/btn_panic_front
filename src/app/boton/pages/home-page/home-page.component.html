@@ -1,7 +1,7 @@
 <ion-content [fullscreen]="true">
     <!-- header -->
     <shared-header></shared-header>
-    <form [formGroup]="homeForm" (ngSubmit)="onSubmit()" class="form">
+    <form [formGroup]="homeForm" class="form">
         <ion-item>
             <ion-label position="floating">Tipo de Incidencia</ion-label>
 
@@ -13,14 +13,32 @@
                 >
             </ion-select>
         </ion-item>
+        <ion-text color="danger" *ngIf="isInvalidField('categoria_id')">
+            Seleccione una categoría.
+        </ion-text>
+
+        <ion-item>
+            <ion-label position="floating">Dirección</ion-label>
+            <ion-textarea formControlName="direccion"></ion-textarea>
+        </ion-item>
+
+        <ion-text color="danger" *ngIf="isInvalidField('direccion')">
+            Ingrese una direción.
+        </ion-text>
 
         <ion-item>
             <ion-label position="floating">Descripción</ion-label>
             <ion-textarea formControlName="descripcion"></ion-textarea>
         </ion-item>
+        <ion-text color="danger" *ngIf="isInvalidField('descripcion')">
+            Ingrese una descripción.
+        </ion-text>
 
+        <!-- <button>hols</button> -->
         <div class="panic-container">
-            <boton-btn-panic></boton-btn-panic>
+            <boton-btn-panic
+                (onSubmit)="onBotonPanic($event)"
+            ></boton-btn-panic>
         </div>
     </form>
 </ion-content>

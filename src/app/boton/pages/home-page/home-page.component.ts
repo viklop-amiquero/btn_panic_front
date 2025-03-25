@@ -5,6 +5,7 @@ import { ToastService } from 'src/app/shared/services/toast.service'
 import { Router } from '@angular/router'
 import { TokenService } from '../../services/token.service'
 import { Categoria } from '../../interfaces/categoria.interface'
+import { ValidatorsService } from 'src/app/shared/services/validators.service'
 
 @Component({
     selector: 'app-home-page',
@@ -20,7 +21,8 @@ export class HomePageComponent implements OnInit {
         private _botonService: BotonService,
         private _toastService: ToastService,
         private _router: Router,
-        private _tokenService: TokenService
+        private _tokenService: TokenService,
+        private _validatorService: ValidatorsService
     ) {}
 
     async ngOnInit() {
@@ -57,7 +59,9 @@ export class HomePageComponent implements OnInit {
 
     public homeForm: FormGroup = this._fb.group({
         categoria_id: ['', Validators.required],
+        imagen: [''],
         descripcion: ['', Validators.required],
+        direccion: ['', Validators.required],
     })
 
     getCategorias() {
@@ -90,5 +94,28 @@ export class HomePageComponent implements OnInit {
         })
     }
 
-    onSubmit() {}
+    isInvalidField(field: string): boolean | null {
+        // return this._validator.isInvalidField(this.loginForm, field)
+        return this._validatorService.isInvalidField(this.homeForm, field)
+    }
+
+    onSubmit() {
+        // console.log('despues de dos segundos')
+
+        if (this.homeForm.invalid) {
+            this.homeForm.markAllAsTouched()
+            return
+        }
+        // console.log('hola mundo desde el componente padre')
+    }
+
+    onBotonPanic(isValid: boolean) {
+        // console.log(`${isValid}`)
+        if (!isValid) {
+            return
+        }
+        // console.log(`${isValid}`)
+        console.log('presionado por dos segundos')
+        this.onSubmit()
+    }
 }
