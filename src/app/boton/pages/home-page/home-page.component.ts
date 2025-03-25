@@ -114,7 +114,6 @@ export class HomePageComponent implements OnInit {
             .addReport(this.getCurrentReport(), this._token)
             .subscribe({
                 next: (resp) => {
-                    console.log(resp)
                     this._toastService.showToast(`${resp.message}`, 'success')
 
                     setTimeout(() => {

@@ -108,7 +108,6 @@ export class RegisterPageComponent implements OnInit {
 
         this._authService.addCustomer(this.getCurrentCustomer()).subscribe({
             next: (resp) => {
-                console.log(resp)
                 this._toast.showToast(`${resp.message}`, 'success')
 
                 // redirigir
