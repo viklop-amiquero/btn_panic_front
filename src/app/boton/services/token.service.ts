@@ -16,6 +16,5 @@ export class TokenService {
 
     async removeToken(): Promise<void> {
         await Preferences.remove({ key: 'authToken' })
-        // console.log('Token eliminado')
     }
 }
