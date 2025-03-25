@@ -112,13 +112,10 @@ export class RegisterPageComponent implements OnInit {
                 this._toast.showToast(`${resp.message}`, 'success')
 
                 // redirigir
-                // document.activeElement?.blur()
 
                 this._router.navigate(['/login'])
             },
             error: (err) => {
-                // console.log(err)
-
                 if (!err.error || !err.error.errors) {
                     this._toast.showToast(
                         'Ocurrió un error inesperado, por favor intentelo más tarde.',

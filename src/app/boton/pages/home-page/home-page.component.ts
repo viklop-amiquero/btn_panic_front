@@ -81,9 +81,6 @@ export class HomePageComponent implements OnInit {
         this._botonService.getCategories(this._token).subscribe({
             next: ({ data }) => {
                 this.categorias = data
-                // console.log('Categorías:', data)
-                // return data
-                // this._toastService.showToast()
             },
             error: (err) => {
                 this._toastService.showToast(
@@ -94,13 +91,11 @@ export class HomePageComponent implements OnInit {
                     await this._tokenService.removeToken()
                     this._router.navigate(['/auth'])
                 }, 1000)
-                // console.error('Error al obtener categorías:', err)
             },
         })
     }
 
     isInvalidField(field: string): boolean | null {
-        // return this._validator.isInvalidField(this.loginForm, field)
         return this._validatorService.isInvalidField(this.homeForm, field)
     }
 
@@ -110,8 +105,6 @@ export class HomePageComponent implements OnInit {
     }
 
     onSubmit() {
-        // console.log('despues de dos segundos')
-
         if (this.homeForm.invalid) {
             this.homeForm.markAllAsTouched()
             return
@@ -124,14 +117,14 @@ export class HomePageComponent implements OnInit {
                     console.log(resp)
                     this._toastService.showToast(`${resp.message}`, 'success')
 
-                    this.homeForm.reset()
-                    if (this.btnPanic) {
-                        this.btnPanic.resetButton()
-                    }
+                    setTimeout(() => {
+                        this.homeForm.reset()
+                        if (this.btnPanic) {
+                            this.btnPanic.resetButton()
+                        }
+                    }, 1000)
                 },
                 error: (err) => {
-                    // console.log(err)
-
                     if (!err.error || !err.error.errors) {
                         this._toastService.showToast(
                             'Ocurrió un error inesperado, por favor intentelo más tarde.',
@@ -148,16 +141,12 @@ export class HomePageComponent implements OnInit {
                     })
                 },
             })
-        // console.log('hola mundo desde el componente padre')
     }
 
     onBotonPanic(isValid: boolean) {
-        // console.log(`${isValid}`)
         if (!isValid) {
             return
         }
-        // console.log(`${isValid}`)
-        // console.log('presionado por dos segundos')
         this.onSubmit()
     }
 }
