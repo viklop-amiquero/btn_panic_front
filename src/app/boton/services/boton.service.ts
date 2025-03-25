@@ -13,8 +13,9 @@ export class BotonService {
 
     constructor(private _http: HttpClient) {}
 
-    addReport(reporte: Reporte): Observable<ReporteSucces> {
+    addReport(reporte: Reporte, token: string): Observable<ReporteSucces> {
         const headers = new HttpHeaders({
+            Authorization: `Bearer ${token}`,
             'Content-Type': 'application/json',
             Accept: 'application/json',
         })

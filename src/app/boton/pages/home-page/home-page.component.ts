@@ -6,6 +6,7 @@ import { Router } from '@angular/router'
 import { TokenService } from '../../services/token.service'
 import { Categoria } from '../../interfaces/categoria.interface'
 import { ValidatorsService } from 'src/app/shared/services/validators.service'
+import { Reporte } from '../../interfaces/reporte.interface'
 
 @Component({
     selector: 'app-home-page',
@@ -17,6 +18,7 @@ export class HomePageComponent implements OnInit {
     private _fb: FormBuilder = new FormBuilder()
     private _token!: string
     public categorias: Categoria[] = []
+
     constructor(
         private _botonService: BotonService,
         private _toastService: ToastService,
@@ -99,6 +101,11 @@ export class HomePageComponent implements OnInit {
         return this._validatorService.isInvalidField(this.homeForm, field)
     }
 
+    getCurrentReport(): Reporte {
+        const reporte = this.homeForm.value
+        return reporte
+    }
+
     onSubmit() {
         // console.log('despues de dos segundos')
 
@@ -106,6 +113,38 @@ export class HomePageComponent implements OnInit {
             this.homeForm.markAllAsTouched()
             return
         }
+
+        this._botonService
+            .addReport(this.getCurrentReport(), this._token)
+            .subscribe({
+                next: (resp) => {
+                    console.log(resp)
+                    this._toastService.showToast(`${resp.message}`, 'success')
+
+                    // redirigir
+                    // document.activeElement?.blur()
+
+                    // this._router.navigate(['/home'])
+                },
+                error: (err) => {
+                    // console.log(err)
+
+                    if (!err.error || !err.error.errors) {
+                        this._toastService.showToast(
+                            'Ocurrió un error inesperado, por favor intentelo más tarde.',
+                            'warning'
+                        )
+                        return
+                    }
+
+                    const errorMessages = Object.values(err.error.errors).flat()
+                    errorMessages.forEach((message, index) => {
+                        setTimeout(() => {
+                            this._toastService.showToast(`${message}`, 'danger')
+                        }, index * 1500)
+                    })
+                },
+            })
         // console.log('hola mundo desde el componente padre')
     }
 
@@ -115,7 +154,7 @@ export class HomePageComponent implements OnInit {
             return
         }
         // console.log(`${isValid}`)
-        console.log('presionado por dos segundos')
+        // console.log('presionado por dos segundos')
         this.onSubmit()
     }
 }
