@@ -1,4 +1,5 @@
-import { Component, EventEmitter, OnInit, Output } from '@angular/core'
+import { Component, EventEmitter, OnInit, Output, Input } from '@angular/core'
+import { ToastService } from 'src/app/shared/services/toast.service'
 
 @Component({
     selector: 'boton-btn-panic',
@@ -9,18 +10,25 @@ import { Component, EventEmitter, OnInit, Output } from '@angular/core'
 export class BtnPanicComponent implements OnInit {
     public txtBoton = 'presionar'
 
-    constructor() {}
+    constructor(private _toastService: ToastService) {}
 
     ngOnInit() {}
 
     @Output()
     public onSubmit = new EventEmitter<boolean>()
-    public rol: string[] = []
+
+    @Input()
+    isFormValid: boolean = false
 
     isActivated = false
     private pressTimer: any
 
     startPress() {
+        if (!this.isFormValid) {
+            this._toastService.showToast('Debe completar los campos.', 'danger')
+            // console.log('Formulario inválido, no se puede activar el botón.')
+            return
+        }
         this.pressTimer = setTimeout(() => {
             this.isActivated = true // Cambia el estado después de 2 segundos
             this.txtBoton = 'activado'

@@ -124,7 +124,8 @@ export class HomePageComponent implements OnInit {
                     // redirigir
                     // document.activeElement?.blur()
 
-                    // this._router.navigate(['/home'])
+                    // this._router.navigate(['/auth'])
+                    // this.ngOnInit()
                 },
                 error: (err) => {
                     // console.log(err)

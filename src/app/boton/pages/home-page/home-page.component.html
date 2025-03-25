@@ -37,6 +37,7 @@
         <!-- <button>hols</button> -->
         <div class="panic-container">
             <boton-btn-panic
+                [isFormValid]="homeForm.valid"
                 (onSubmit)="onBotonPanic($event)"
             ></boton-btn-panic>
         </div>
