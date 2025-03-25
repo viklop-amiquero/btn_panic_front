@@ -45,4 +45,9 @@ export class BtnPanicComponent implements OnInit {
             this.onSubmit.emit(true)
         }
     }
+
+    resetButton() {
+        this.isActivated = false
+        this.txtBoton = 'presionar'
+    }
 }

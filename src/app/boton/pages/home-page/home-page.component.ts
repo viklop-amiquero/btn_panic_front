@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core'
+import { Component, OnInit, ViewChild } from '@angular/core'
 import { FormBuilder, FormGroup, Validators } from '@angular/forms'
 import { BotonService } from '../../services/boton.service'
 import { ToastService } from 'src/app/shared/services/toast.service'
@@ -7,6 +7,7 @@ import { TokenService } from '../../services/token.service'
 import { Categoria } from '../../interfaces/categoria.interface'
 import { ValidatorsService } from 'src/app/shared/services/validators.service'
 import { Reporte } from '../../interfaces/reporte.interface'
+import { BtnPanicComponent } from '../../components/btn-panic/btn-panic.component'
 
 @Component({
     selector: 'app-home-page',
@@ -15,6 +16,8 @@ import { Reporte } from '../../interfaces/reporte.interface'
     standalone: false,
 })
 export class HomePageComponent implements OnInit {
+    @ViewChild(BtnPanicComponent)
+    btnPanic!: BtnPanicComponent
     private _fb: FormBuilder = new FormBuilder()
     private _token!: string
     public categorias: Categoria[] = []
@@ -121,11 +124,10 @@ export class HomePageComponent implements OnInit {
                     console.log(resp)
                     this._toastService.showToast(`${resp.message}`, 'success')
 
-                    // redirigir
-                    // document.activeElement?.blur()
-
-                    // this._router.navigate(['/auth'])
-                    // this.ngOnInit()
+                    this.homeForm.reset()
+                    if (this.btnPanic) {
+                        this.btnPanic.resetButton()
+                    }
                 },
                 error: (err) => {
                     // console.log(err)
