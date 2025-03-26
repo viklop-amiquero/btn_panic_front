@@ -127,7 +127,8 @@ export class HomePageComponent implements OnInit {
                 latitud: ubicacion.latitud,
                 longitud: ubicacion.longitud,
             }
-            console.log(reporte)
+
+            // console.log(reporte)
             this._botonService.addReport(reporte, this._token).subscribe({
                 next: (resp) => {
                     this._toastService.showToast(`${resp.message}`, 'success')
