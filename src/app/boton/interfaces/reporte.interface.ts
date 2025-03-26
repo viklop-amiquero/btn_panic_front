@@ -7,4 +7,6 @@ export interface Reporte {
     direccion: string
     imagen?: string
     categoria_id: string
+    latitud?: number
+    longitud?: number
 }

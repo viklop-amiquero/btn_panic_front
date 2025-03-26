@@ -21,6 +21,8 @@ export class HomePageComponent implements OnInit {
     private _fb: FormBuilder = new FormBuilder()
     private _token!: string
     public categorias: Categoria[] = []
+    public latitud: number | null = null
+    public longitud: number | null = null
 
     constructor(
         private _botonService: BotonService,
@@ -104,23 +106,34 @@ export class HomePageComponent implements OnInit {
         return reporte
     }
 
-    onSubmit() {
+    resetForm() {
+        this.homeForm.reset()
+        if (this.btnPanic) {
+            this.btnPanic.resetButton()
+        }
+    }
+
+    async onSubmit() {
         if (this.homeForm.invalid) {
             this.homeForm.markAllAsTouched()
             return
         }
 
-        this._botonService
-            .addReport(this.getCurrentReport(), this._token)
-            .subscribe({
+        try {
+            const ubicacion = await this._botonService.getLocation()
+
+            const reporte: Reporte = {
+                ...this.getCurrentReport(),
+                latitud: ubicacion.latitud,
+                longitud: ubicacion.longitud,
+            }
+            console.log(reporte)
+            this._botonService.addReport(reporte, this._token).subscribe({
                 next: (resp) => {
                     this._toastService.showToast(`${resp.message}`, 'success')
 
                     setTimeout(() => {
-                        this.homeForm.reset()
-                        if (this.btnPanic) {
-                            this.btnPanic.resetButton()
-                        }
+                        this.resetForm()
                     }, 1000)
                 },
                 error: (err) => {
@@ -129,6 +142,8 @@ export class HomePageComponent implements OnInit {
                             'Ocurrió un error inesperado, por favor intentelo más tarde.',
                             'warning'
                         )
+                        this.resetForm()
+
                         return
                     }
 
@@ -140,6 +155,13 @@ export class HomePageComponent implements OnInit {
                     })
                 },
             })
+        } catch (error) {
+            this._toastService.showToast(
+                'No se pudo obtener la ubicación',
+                'danger'
+            )
+            this.resetForm()
+        }
     }
 
     onBotonPanic(isValid: boolean) {
