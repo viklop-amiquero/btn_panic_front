@@ -23,8 +23,8 @@ import { User } from '../interfaces/user.interface'
 })
 export class AuthService {
     private _apiUrl: string = environment.baseUrl
-    private _persona?: Persona
-    private _account?: User
+    public _persona?: Persona
+    public _account?: User
     constructor(
         private _http: HttpClient,
         private _tokenService: TokenService
@@ -56,7 +56,10 @@ export class AuthService {
         return this._http
             .post<LoginSuccess>(`${this._apiUrl}/api/login`, data, { headers })
             .pipe(
-                tap((data) => (this._account = data.user)),
+                tap((data) => {
+                    this._account = data.user
+                    console.log(this._account)
+                }),
                 catchError((error) => {
                     return throwError(() => error)
                 })
