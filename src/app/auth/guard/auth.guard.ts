@@ -1,16 +1,21 @@
 import { inject } from '@angular/core'
 import { CanActivateFn, Router } from '@angular/router'
-import { Preferences } from '@capacitor/preferences'
+import { Observable, tap } from 'rxjs'
+import { AuthService } from '../services/auth.service'
 
-export const authGuard: CanActivateFn = async (route, state) => {
-    const router = inject(Router)
+const checkAuthStatus = (): Observable<boolean> => {
+    const authService: AuthService = inject(AuthService)
+    const router: Router = inject(Router)
 
-    const { value } = await Preferences.get({ key: 'authToken' })
+    return authService.checkAuthentication().pipe(
+        tap((isAuthenticaded) => {
+            if (!isAuthenticaded) {
+                router.navigateByUrl('auth')
+            }
+        })
+    )
+}
 
-    if (!value) {
-        router.navigate(['/auth'])
-        return false
-    }
-
-    return true
+export const authGuard: CanActivateFn = (route, state) => {
+    return checkAuthStatus()
 }
