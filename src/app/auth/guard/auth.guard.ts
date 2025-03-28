@@ -2,7 +2,7 @@ import { inject } from '@angular/core'
 import { CanActivateFn, Router } from '@angular/router'
 import { Observable, tap } from 'rxjs'
 import { AuthService } from '../services/auth.service'
-
+import { RoutesName } from 'src/app/shared/routes/routes'
 const checkAuthStatus = (): Observable<boolean> => {
     const authService: AuthService = inject(AuthService)
     const router: Router = inject(Router)
@@ -10,7 +10,8 @@ const checkAuthStatus = (): Observable<boolean> => {
     return authService.checkAuthentication().pipe(
         tap((isAuthenticaded) => {
             if (!isAuthenticaded) {
-                router.navigateByUrl('auth')
+                // router.navigateByUrl('auth')
+                router.navigate([RoutesName.AUTH])
             }
         })
     )

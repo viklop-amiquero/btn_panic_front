@@ -10,6 +10,7 @@ import { ToastService } from 'src/app/shared/services/toast.service'
 import { Router } from '@angular/router'
 
 import { Preferences } from '@capacitor/preferences'
+import { RoutesName } from 'src/app/shared/routes/routes'
 @Component({
     selector: 'app-login-page',
     standalone: false,
@@ -80,7 +81,8 @@ export class LoginPageComponent implements OnInit {
                 await Preferences.set({ key: 'authToken', value: resp.token })
 
                 // Redirigir a home
-                this._router.navigate(['/home'])
+                // this._router.navigate(['/index'])
+                this._router.navigate([RoutesName.INDEX])
             },
             error: (err) => {
                 if (!err.error || !err.error.errors) {

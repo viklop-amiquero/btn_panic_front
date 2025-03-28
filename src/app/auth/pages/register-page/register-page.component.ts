@@ -5,6 +5,7 @@ import { AuthService } from '../../services/auth.service'
 import { ToastService } from 'src/app/shared/services/toast.service'
 import { ValidatorsService } from 'src/app/shared/services/validators.service'
 import { Router } from '@angular/router'
+import { RoutesName } from 'src/app/shared/routes/routes'
 
 @Component({
     selector: 'app-register-page',
@@ -112,7 +113,8 @@ export class RegisterPageComponent implements OnInit {
 
                 // redirigir
 
-                this._router.navigate(['/login'])
+                // this._router.navigate(['/login'])
+                this._router.navigate([RoutesName.AUTH])
             },
             error: (err) => {
                 if (!err.error || !err.error.errors) {

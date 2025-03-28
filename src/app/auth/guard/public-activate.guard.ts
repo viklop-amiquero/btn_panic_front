@@ -2,6 +2,7 @@ import { CanActivateFn, Router } from '@angular/router'
 import { Observable, tap, map } from 'rxjs'
 import { AuthService } from '../services/auth.service'
 import { inject } from '@angular/core'
+import { RoutesName } from 'src/app/shared/routes/routes'
 
 const checkAuthStatus = (): Observable<boolean> => {
     const authService: AuthService = inject(AuthService)
@@ -10,7 +11,8 @@ const checkAuthStatus = (): Observable<boolean> => {
     return authService.checkAuthentication().pipe(
         tap((isAuthenticaded) => {
             if (isAuthenticaded) {
-                router.navigateByUrl('home')
+                // router.navigateByUrl('index')
+                router.navigate([RoutesName.INDEX])
             }
         }),
         map((isAuthenticaded) => !isAuthenticaded)

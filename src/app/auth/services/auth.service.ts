@@ -17,18 +17,38 @@ import { LoginCredentials, LoginSuccess } from '../interfaces/login.interface'
 import { Persona } from '../interfaces/persona.interface'
 import { TokenService } from 'src/app/boton/services/token.service'
 import { User } from '../interfaces/user.interface'
+import { Preferences } from '@capacitor/preferences'
 
 @Injectable({
     providedIn: 'root',
 })
 export class AuthService {
     private _apiUrl: string = environment.baseUrl
-    public _persona?: Persona
-    public _account?: User
+    public _persona: Persona = {} as Persona
+    public _account: User = {} as User
+
     constructor(
         private _http: HttpClient,
         private _tokenService: TokenService
     ) {}
+
+    get isAuthenticated(): boolean {
+        return !!this._account?.id && !!this._persona?.id
+    }
+
+    async saveToStorage(key: string, value: any) {
+        await Preferences.set({ key, value: JSON.stringify(value) })
+    }
+
+    async getFromStorage<T>(key: string): Promise<T | null> {
+        const { value } = await Preferences.get({ key })
+
+        return value ? JSON.parse(value) : null
+    }
+
+    async removeFromStorage(key: string) {
+        await Preferences.remove({ key })
+    }
 
     addCustomer(customer: CustomerRegister): Observable<RegisterSuccess> {
         const headers = new HttpHeaders({
@@ -56,9 +76,9 @@ export class AuthService {
         return this._http
             .post<LoginSuccess>(`${this._apiUrl}/api/login`, data, { headers })
             .pipe(
-                tap((data) => {
-                    this._account = data.user
-                    console.log(this._account)
+                tap(async (response) => {
+                    this._account = response.user
+                    await this.saveToStorage('user', response.user)
                 }),
                 catchError((error) => {
                     return throwError(() => error)
@@ -80,11 +100,21 @@ export class AuthService {
                 return this._http
                     .get<Persona>(`${this._apiUrl}/api/cliente`, { headers })
                     .pipe(
-                        tap((persona) => (this._persona = persona)),
+                        tap(async (persona) => {
+                            this._persona = persona
+                            await this.saveToStorage('persona', persona)
+                        }),
                         map((persona) => !!persona),
                         catchError(() => of(false))
                     )
             })
         )
+    }
+
+    async loadStoredData() {
+        this._persona =
+            (await this.getFromStorage<Persona>('persona')) || ({} as Persona)
+        this._account =
+            (await this.getFromStorage<User>('user')) || ({} as User)
     }
 }

@@ -10,23 +10,14 @@ import { AuthService } from 'src/app/auth/services/auth.service'
     standalone: false,
 })
 export class ProfilePageComponent implements OnInit {
-    public persona!: Persona
-    public user!: User
+    public persona: Persona = {} as Persona
+    public user: User = {} as User
     constructor(private _authService: AuthService) {}
 
-    getPersona() {
-        // this.user = this._authService._account
-        if (this._authService._persona) {
-            this.persona = this._authService._persona
-            // console.log(this._authService._account)
-        }
-    }
+    async ngOnInit() {
+        await this._authService.loadStoredData()
 
-    ngOnInit() {
-        this.getPersona()
-        // this._authService.checkAuthentication().subscribe((isAuthenticated) => {
-        //     if (isAuthenticated) {
-        //     }
-        // })
+        this.persona = this._authService._persona || ({} as Persona)
+        this.user = this._authService._account || ({} as User)
     }
 }

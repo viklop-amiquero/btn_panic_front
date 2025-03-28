@@ -8,6 +8,7 @@ import { Categoria } from '../../interfaces/categoria.interface'
 import { ValidatorsService } from 'src/app/shared/services/validators.service'
 import { Reporte } from '../../interfaces/reporte.interface'
 import { BtnPanicComponent } from '../../components/btn-panic/btn-panic.component'
+import { RoutesName } from 'src/app/shared/routes/routes'
 
 @Component({
     selector: 'app-home-page',
@@ -77,7 +78,8 @@ export class HomePageComponent implements OnInit {
                 'Sesión expirada. Inicie sesión nuevamente.',
                 'warning'
             )
-            this._router.navigate(['/auth'])
+            // this._router.navigate(['/auth'])
+            this._router.navigate([RoutesName.AUTH])
             return
         }
         this._botonService.getCategories(this._token).subscribe({
@@ -91,7 +93,8 @@ export class HomePageComponent implements OnInit {
                 )
                 setTimeout(async () => {
                     await this._tokenService.removeToken()
-                    this._router.navigate(['/auth'])
+                    // this._router.navigate(['/auth'])
+                    this._router.navigate([RoutesName.AUTH])
                 }, 1000)
             },
         })
