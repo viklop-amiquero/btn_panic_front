@@ -1,0 +1,52 @@
+<ion-header>
+    <ion-toolbar color="success">
+        <ion-title>Mis Reportes</ion-title>
+    </ion-toolbar>
+</ion-header>
+
+<ion-content>
+    <ion-list>
+        <ion-item *ngFor="let report of reports">
+            <ion-label>
+                <h2 class="categoria">{{ report.categoria }}</h2>
+                <p class="direccion">{{ report.direccion }}</p>
+                <p class="fecha">{{ report.created_date }}</p>
+                <p class="hora">{{ report.created_at }}</p>
+                <span
+                    class="estado-badge"
+                    [ngClass]="getEstadoClass(report.estado)"
+                >
+                    {{ getEstadoText(report.estado) }}
+                </span>
+            </ion-label>
+            <ion-button
+                *ngIf="report.estado === '1'"
+                color="danger"
+                (click)="deleteReport(report.id)"
+            >
+                <ion-icon name="trash"></ion-icon>
+            </ion-button>
+        </ion-item>
+    </ion-list>
+</ion-content>
+
+<!-- <ion-content>
+    <ion-list>
+        <ion-item *ngFor="let report of reports">
+            <ion-label>
+                <h2 class="categoria">{{ report.categoria }}</h2>
+                <p class="direccion">{{ report.direccion }}</p>
+                <p class="fecha">{{ report.created_date }}</p>
+                <p class="hora">{{ report.created_at }}</p>
+                <span
+                    class="estado-badge"
+                    [ngClass]="getEstadoClass(report.estado)"
+                >
+                    {{ getEstadoText(report.estado) }}
+                </span>
+            </ion-label>
+        </ion-item>
+    </ion-list>
+</ion-content> -->
+
+<shared-footer></shared-footer>

@@ -1,0 +1,50 @@
+ion-item {
+    border-bottom: 1px solid #e0e0e0;
+    padding: 10px;
+  }
+
+  .categoria {
+    font-size: 1.2rem;
+    font-weight: bold;
+    color: #333;
+  }
+
+  .direccion {
+    font-size: 1rem;
+    color: #666;
+  }
+
+  .fecha {
+    font-size: 0.9rem;
+    color: #999;
+  }
+
+  .estado-badge {
+    display: inline-block;
+    padding: 5px 10px;
+    border-radius: 12px;
+    font-size: 0.9rem;
+    font-weight: bold;
+    text-align: center;
+    width: 100px;
+  }
+
+  .estado-reportado {
+    background-color: #f4b400; // Amarillo
+    color: white;
+  }
+
+  .estado-anulado {
+    background-color: #d32f2f; // Rojo
+    color: white;
+  }
+
+  .estado-atendido {
+    background-color: #388e3c; // Verde
+    color: white;
+  }
+
+  .estado-desconocido {
+    background-color: #757575; // Gris
+    color: white;
+  }

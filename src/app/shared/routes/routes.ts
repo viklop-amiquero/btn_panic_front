@@ -4,4 +4,5 @@ export const RoutesName = {
     REGISTER: 'register',
     INDEX: 'index',
     PROFILE: 'profile',
+    REPORTS: 'reports',
 }

@@ -6,7 +6,7 @@ import { Router } from '@angular/router'
 import { TokenService } from '../../services/token.service'
 import { Categoria } from '../../interfaces/categoria.interface'
 import { ValidatorsService } from 'src/app/shared/services/validators.service'
-import { Reporte } from '../../interfaces/reporte.interface'
+import { ReporteRegister } from '../../interfaces/reporte.interface'
 import { BtnPanicComponent } from '../../components/btn-panic/btn-panic.component'
 import { RoutesName } from 'src/app/shared/routes/routes'
 
@@ -104,7 +104,7 @@ export class HomePageComponent implements OnInit {
         return this._validatorService.isInvalidField(this.homeForm, field)
     }
 
-    getCurrentReport(): Reporte {
+    getCurrentReport(): ReporteRegister {
         const reporte = this.homeForm.value
         return reporte
     }
@@ -125,7 +125,7 @@ export class HomePageComponent implements OnInit {
         try {
             const ubicacion = await this._botonService.getLocation()
 
-            const reporte: Reporte = {
+            const reporte: ReporteRegister = {
                 ...this.getCurrentReport(),
                 latitud: ubicacion.latitud,
                 longitud: ubicacion.longitud,

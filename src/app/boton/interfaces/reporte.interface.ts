@@ -1,8 +1,8 @@
-export interface ReporteSucces {
+export interface ReporteAddSucces {
     message: string
 }
 
-export interface Reporte {
+export interface ReporteRegister {
     descripcion: string
     direccion: string
     imagen?: string

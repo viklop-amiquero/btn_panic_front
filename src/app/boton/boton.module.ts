@@ -9,9 +9,15 @@ import { HomePageComponent } from './pages/home-page/home-page.component'
 import { BtnPanicComponent } from './components/btn-panic/btn-panic.component'
 import { SharedModule } from '../shared/shared.module'
 import { ProfilePageComponent } from './pages/profile-page/profile-page.component'
+import { ListReportsPageComponent } from './pages/list-reports-page/list-reports-page.component'
 
 @NgModule({
-    declarations: [HomePageComponent, ProfilePageComponent, BtnPanicComponent],
+    declarations: [
+        HomePageComponent,
+        ProfilePageComponent,
+        ListReportsPageComponent,
+        BtnPanicComponent,
+    ],
     imports: [
         CommonModule,
         BotonRoutingModule,

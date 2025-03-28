@@ -4,6 +4,7 @@
     </ion-toolbar>
 </ion-header>
 
+<!-- <shared-header></shared-header> -->
 <ion-content>
     <ion-card>
         <ion-card-header class="text-center">
@@ -13,7 +14,16 @@
             <ion-card-title
                 >{{ persona.nombre }} {{ persona.apellido }}</ion-card-title
             >
-            <!-- <ion-card-subtitle>{{ estado }}</ion-card-subtitle> -->
+            <ion-card-subtitle
+                [ngClass]="{
+                    activo: persona.estado === '1',
+                    suspendido: persona.estado === '0'
+                }"
+            >
+                {{ persona.estado === '1' ? 'Activo' : 'Suspendido' }}
+            </ion-card-subtitle>
+
+            <!-- <ion-card-subtitle>{{ persona.estado }}</ion-card-subtitle> -->
         </ion-card-header>
 
         <ion-card-content>
@@ -57,3 +67,5 @@
         Editar Perfil
     </ion-button> -->
 </ion-content>
+
+<shared-footer></shared-footer>

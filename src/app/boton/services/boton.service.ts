@@ -1,10 +1,15 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http'
 import { Injectable } from '@angular/core'
-import { catchError, Observable, throwError } from 'rxjs'
+import { catchError, Observable, throwError, from, switchMap } from 'rxjs'
 import { environment } from 'src/environments/environment'
 import { CategoriaResponse } from '../interfaces/categoria.interface'
-import { Reporte, ReporteSucces } from '../interfaces/reporte.interface'
+import {
+    ReporteRegister,
+    ReporteAddSucces,
+} from '../interfaces/reporte.interface'
 import { Geolocation } from '@capacitor/geolocation'
+import { ReportsResponse } from '../interfaces/reports.interface'
+import { TokenService } from './token.service'
 
 @Injectable({
     providedIn: 'root',
@@ -12,7 +17,10 @@ import { Geolocation } from '@capacitor/geolocation'
 export class BotonService {
     private _apiUrl: string = environment.baseUrl
 
-    constructor(private _http: HttpClient) {}
+    constructor(
+        private _http: HttpClient,
+        private _tokenService: TokenService
+    ) {}
 
     async getLocation(): Promise<{ latitud: number; longitud: number }> {
         try {
@@ -27,7 +35,10 @@ export class BotonService {
         }
     }
 
-    addReport(reporte: Reporte, token: string): Observable<ReporteSucces> {
+    addReport(
+        reporte: ReporteRegister,
+        token: string
+    ): Observable<ReporteAddSucces> {
         const headers = new HttpHeaders({
             Authorization: `Bearer ${token}`,
             'Content-Type': 'application/json',
@@ -35,7 +46,7 @@ export class BotonService {
         })
 
         return this._http
-            .post<ReporteSucces>(`${this._apiUrl}/api/reporte`, reporte, {
+            .post<ReporteAddSucces>(`${this._apiUrl}/api/reporte`, reporte, {
                 headers,
             })
             .pipe(
@@ -62,4 +73,45 @@ export class BotonService {
                 })
             )
     }
+
+    getReports(): Observable<ReportsResponse> {
+        return from(this._tokenService.loadToken()).pipe(
+            switchMap((token) => {
+                const headers = new HttpHeaders({
+                    Authorization: `Bearer ${token}`,
+                    'Content-Type': 'application/json',
+                    'X-Requested-With': 'XMLHttpRequest',
+                })
+
+                return this._http.get<ReportsResponse>(
+                    `${this._apiUrl}/api/reporte`,
+                    { headers }
+                )
+            }),
+            catchError((error) => throwError(() => error))
+        )
+    }
+
+    // getReports(): Observable<ReportsResponse> {
+    //     return from(this._tokenService.loadToken()).pipe(
+    //         tap((token) => {
+    //             const headers = new HttpHeaders({
+    //                 Authorization: `Bearer ${token}`,
+    //                 'Content-Type': 'application/json',
+    //                 'X-Requested-With': 'XMLHttpRequest',
+    //             })
+    //         })
+
+    //         return this._http
+    //             .get<ReportsResponse>(`${this._apiUrl}/api/reporte`, {
+    //                 headers,
+    //             })
+    //             .pipe(
+    //                 catchError((error) => {
+    //                     return throwError(() => error)
+    //                 })
+    //             )
+    //     )
+
+    // }
 }
