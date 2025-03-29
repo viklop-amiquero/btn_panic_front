@@ -15,7 +15,7 @@ export class ListReportsPageComponent implements OnInit {
 
     getReports() {
         this._botonService.getReports().subscribe(({ data }) => {
-            console.log(data)
+            // console.log(data)
             this.reports = data
             // this.reports = data
         })
@@ -24,6 +24,7 @@ export class ListReportsPageComponent implements OnInit {
     ngOnInit() {
         this.getReports()
     }
+
     getEstadoText(estado: string): string {
         switch (estado) {
             case '1':

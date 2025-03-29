@@ -6,6 +6,9 @@
 
 <ion-content>
     <ion-list>
+        <p class="message" *ngIf="!reports || reports.length === 0">
+            no tiene reportes registrados
+        </p>
         <ion-item *ngFor="let report of reports">
             <ion-label>
                 <h2 class="categoria">{{ report.categoria }}</h2>
