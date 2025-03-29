@@ -4,26 +4,30 @@ import { HomePageComponent } from './pages/home-page/home-page.component'
 import { ProfilePageComponent } from './pages/profile-page/profile-page.component'
 import { RoutesName } from '../shared/routes/routes'
 import { ListReportsPageComponent } from './pages/list-reports-page/list-reports-page.component'
+import { MainLayoutComponent } from './layout/main-layout/main-layout.component'
 
 const routes: Routes = [
     {
         path: '',
-        // component: HomePage,
-        component: HomePageComponent,
+        component: MainLayoutComponent,
+        children: [
+            { path: RoutesName.INDEX, component: HomePageComponent },
+            { path: RoutesName.REPORTS, component: ListReportsPageComponent },
+            { path: RoutesName.PROFILE, component: ProfilePageComponent },
+        ],
     },
-    {
-        path: RoutesName.REPORTS,
-        component: ListReportsPageComponent,
-    },
-    {
-        // path: 'profile',
-        path: RoutesName.PROFILE,
-        component: ProfilePageComponent,
-    },
-    {
-        path: '**',
-        redirectTo: '',
-    },
+    // {
+    //     path: RoutesName.REPORTS,
+    //     component: ListReportsPageComponent,
+    // },
+    // {
+    //     path: RoutesName.PROFILE,
+    //     component: ProfilePageComponent,
+    // },
+    // {
+    //     path: '**',
+    //     redirectTo: '',
+    // },
 ]
 
 @NgModule({

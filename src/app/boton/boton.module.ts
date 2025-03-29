@@ -1,4 +1,4 @@
-import { NgModule } from '@angular/core'
+import { NgModule, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core'
 import { CommonModule } from '@angular/common'
 
 import { IonicModule } from '@ionic/angular'
@@ -10,9 +10,11 @@ import { BtnPanicComponent } from './components/btn-panic/btn-panic.component'
 import { SharedModule } from '../shared/shared.module'
 import { ProfilePageComponent } from './pages/profile-page/profile-page.component'
 import { ListReportsPageComponent } from './pages/list-reports-page/list-reports-page.component'
+import { MainLayoutComponent } from './layout/main-layout/main-layout.component'
 
 @NgModule({
     declarations: [
+        MainLayoutComponent,
         HomePageComponent,
         ProfilePageComponent,
         ListReportsPageComponent,
@@ -25,5 +27,6 @@ import { ListReportsPageComponent } from './pages/list-reports-page/list-reports
         IonicModule,
         ReactiveFormsModule,
     ],
+    schemas: [CUSTOM_ELEMENTS_SCHEMA],
 })
 export class BotonModule {}
