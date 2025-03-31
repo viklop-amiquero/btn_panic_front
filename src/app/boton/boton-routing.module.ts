@@ -11,23 +11,11 @@ const routes: Routes = [
         path: '',
         component: MainLayoutComponent,
         children: [
-            { path: RoutesName.INDEX, component: HomePageComponent },
+            { path: '', component: HomePageComponent },
             { path: RoutesName.REPORTS, component: ListReportsPageComponent },
             { path: RoutesName.PROFILE, component: ProfilePageComponent },
         ],
     },
-    // {
-    //     path: RoutesName.REPORTS,
-    //     component: ListReportsPageComponent,
-    // },
-    // {
-    //     path: RoutesName.PROFILE,
-    //     component: ProfilePageComponent,
-    // },
-    // {
-    //     path: '**',
-    //     redirectTo: '',
-    // },
 ]
 
 @NgModule({

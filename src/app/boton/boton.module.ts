@@ -27,6 +27,5 @@ import { MainLayoutComponent } from './layout/main-layout/main-layout.component'
         IonicModule,
         ReactiveFormsModule,
     ],
-    schemas: [CUSTOM_ELEMENTS_SCHEMA],
 })
 export class BotonModule {}
