@@ -1,22 +1,21 @@
 <ion-header>
     <ion-toolbar>
-        <div class="flex-hedaer">
-            <ion-img
-                src="assets/logo.png"
-                style="width: 60px; margin-left: 10px"
-            ></ion-img>
-            <h1 class="titulo">Botón de pánico</h1>
+        <div class="header-container">
+            <!-- Botón de menú -->
+            <ion-buttons slot="start">
+                <ion-menu-button></ion-menu-button>
+            </ion-buttons>
+
+            <!-- Logo y título centrados -->
+            <div class="header-title">
+                <ion-img src="assets/logo.png" class="logo"></ion-img>
+                <h1 class="titulo">Botón de pánico</h1>
+            </div>
+
+            <!-- Nota alineada a la derecha -->
+            <ion-note class="header-note">
+                Municipalidad Distrital Andrés Avelino Cáceres
+            </ion-note>
         </div>
-        <!-- <ion-title style="text-align: center; font-weight: bold"
-            >Botón de pánico</ion-title
-        > -->
-        <ion-note
-            style="text-align: center; padding-bottom: 10px; display: block"
-        >
-            Municipalidad Distrital Andrés Avelino Cáceres
-        </ion-note>
-        <!-- <ion-note style="text-align: center">
-            Municipalidad de Andrés Avelino Cáceres Dorregaray
-        </ion-note> -->
     </ion-toolbar>
 </ion-header>

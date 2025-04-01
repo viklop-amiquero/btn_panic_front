@@ -1,16 +1,32 @@
-.flex-hedaer{
+.header-container {
     display: flex;
-    gap: 10px;
-    flex-direction: column;
-    justify-content: center;
     align-items: center;
+    justify-content: space-between;
+    width: 100%;
     padding: 10px;
-    // background-color: #86a30a;
-    // color: #000;
+}
+
+.header-title {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    flex-grow: 1;
+    justify-content: center; /* Centra el título y el logo */
+}
+
+.logo {
+    width: 60px; /* Tamaño del logo */
 }
 
 .titulo {
-    margin: 0;
-    font-weight: 900;
     font-size: 18px;
+    font-weight: bold;
+    color: #333;
+}
+
+.header-note {
+    font-size: 12px;
+    text-align: right;
+    color: #555;
+    max-width: 200px; /* Limita el ancho de la nota */
 }
