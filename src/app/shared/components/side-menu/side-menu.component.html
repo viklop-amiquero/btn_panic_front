@@ -6,7 +6,11 @@
     </ion-header>
     <ion-content>
         <ion-list>
-            <ion-item [routerLink]="routesName.INDEX.route">
+            <ion-item
+                [routerLink]="routesName.INDEX.route"
+                routerLinkActive="active"
+                [routerLinkActiveOptions]="{ exact: true }"
+            >
                 <ion-icon
                     name="home-outline"
                     slot="start"
@@ -14,7 +18,11 @@
                 ></ion-icon>
                 {{ routesName.INDEX.name }}
             </ion-item>
-            <ion-item [routerLink]="routesName.REPORTS.route">
+
+            <ion-item
+                [routerLink]="routesName.REPORTS.route"
+                routerLinkActive="active"
+            >
                 <ion-icon
                     name="refresh-circle-outline"
                     slot="start"
@@ -22,7 +30,11 @@
                 ></ion-icon>
                 {{ routesName.REPORTS.name }}
             </ion-item>
-            <ion-item [routerLink]="routesName.PROFILE.route">
+
+            <ion-item
+                [routerLink]="routesName.PROFILE.route"
+                routerLinkActive="active"
+            >
                 <ion-icon
                     name="person-circle-outline"
                     slot="start"
@@ -30,6 +42,7 @@
                 ></ion-icon>
                 {{ routesName.PROFILE.name }}
             </ion-item>
+
             <ion-item button (click)="logout()">
                 <ion-icon
                     name="log-out-outline"
