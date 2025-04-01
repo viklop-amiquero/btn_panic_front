@@ -10,7 +10,6 @@ const checkAuthStatus = (): Observable<boolean> => {
     return authService.checkAuthentication().pipe(
         tap((isAuthenticaded) => {
             if (!isAuthenticaded) {
-                // router.navigateByUrl('auth')
                 router.navigate([RoutesName.AUTH.route])
             }
         })

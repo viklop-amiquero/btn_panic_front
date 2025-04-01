@@ -106,9 +106,9 @@ export class AuthService {
                     )
                     .pipe(
                         tap(async () => {
+                            await this._tokenService.removeToken()
                             await this.removeFromStorage('user')
                             await this.removeFromStorage('persona')
-                            await this._tokenService.removeToken()
                             this._persona = {} as Persona
                             this._account = {} as User
                         }),
