@@ -12,8 +12,11 @@ const routes: Routes = [
         component: MainLayoutComponent,
         children: [
             { path: '', component: HomePageComponent },
-            { path: RoutesName.REPORTS, component: ListReportsPageComponent },
-            { path: RoutesName.PROFILE, component: ProfilePageComponent },
+            {
+                path: RoutesName.REPORTS.route,
+                component: ListReportsPageComponent,
+            },
+            { path: RoutesName.PROFILE.route, component: ProfilePageComponent },
         ],
     },
 ]

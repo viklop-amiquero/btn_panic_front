@@ -80,9 +80,11 @@ export class LoginPageComponent implements OnInit {
                 // Almacenar el token de manera correcta
                 await Preferences.set({ key: 'authToken', value: resp.token })
 
+                // Resetear formulario
+                this.loginForm.reset()
+
                 // Redirigir a home
-                // this._router.navigate(['/index'])
-                this._router.navigate([RoutesName.INDEX])
+                this._router.navigate([RoutesName.INDEX.route])
             },
             error: (err) => {
                 if (!err.error || !err.error.errors) {

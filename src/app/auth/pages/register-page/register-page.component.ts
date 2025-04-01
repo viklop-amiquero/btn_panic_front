@@ -111,10 +111,10 @@ export class RegisterPageComponent implements OnInit {
             next: (resp) => {
                 this._toast.showToast(`${resp.message}`, 'success')
 
-                // redirigir
-
-                // this._router.navigate(['/login'])
-                this._router.navigate([RoutesName.AUTH])
+                // resetear formulario
+                this.registerForm.reset()
+                //redirigir
+                this._router.navigate([RoutesName.AUTH.route])
             },
             error: (err) => {
                 if (!err.error || !err.error.errors) {

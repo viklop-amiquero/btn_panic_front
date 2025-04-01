@@ -7,17 +7,17 @@ import { RoutesName } from '../shared/routes/routes'
 const routes: Routes = [
     {
         // path: 'login',
-        path: RoutesName.LOGIN,
+        path: RoutesName.LOGIN.route,
         component: LoginPageComponent,
     },
     {
         // path: 'register',
-        path: RoutesName.REGISTER,
+        path: RoutesName.REGISTER.route,
         component: RegisterPageComponent,
     },
     {
         path: '**',
-        redirectTo: RoutesName.LOGIN,
+        redirectTo: RoutesName.LOGIN.route,
         // redirectTo: 'login',
     },
 ]

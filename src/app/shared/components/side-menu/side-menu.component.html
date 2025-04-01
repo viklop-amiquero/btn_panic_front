@@ -1,0 +1,53 @@
+<ion-menu contentId="main-content">
+    <ion-header>
+        <ion-toolbar>
+            <ion-title>Menu Content</ion-title>
+        </ion-toolbar>
+    </ion-header>
+    <ion-content>
+        <ion-list>
+            <ion-item [routerLink]="routesName.INDEX.route">
+                <ion-icon
+                    name="home-outline"
+                    slot="start"
+                    style="color: #86a30a"
+                ></ion-icon>
+                {{ routesName.INDEX.name }}
+            </ion-item>
+            <ion-item [routerLink]="routesName.REPORTS.route">
+                <ion-icon
+                    name="refresh-circle-outline"
+                    slot="start"
+                    style="color: #86a30a"
+                ></ion-icon>
+                {{ routesName.REPORTS.name }}
+            </ion-item>
+            <ion-item [routerLink]="routesName.PROFILE.route">
+                <ion-icon
+                    name="person-circle-outline"
+                    slot="start"
+                    style="color: #86a30a"
+                ></ion-icon>
+                {{ routesName.PROFILE.name }}
+            </ion-item>
+            <ion-item button (click)="logout()">
+                <ion-icon
+                    name="log-out-outline"
+                    slot="start"
+                    style="color: #86a30a"
+                ></ion-icon>
+                Cerrar Sesión
+            </ion-item>
+
+            <!-- <ion-item>
+                <ion-icon
+                    name="log-out-outline"
+                    slot="start"
+                    style="color: #86a30a"
+                ></ion-icon>
+                Cerrar Sesión
+            </ion-item> -->
+        </ion-list>
+    </ion-content>
+    <ion-content class="ion-padding">This is the menu content.</ion-content>
+</ion-menu>

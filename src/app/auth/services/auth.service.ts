@@ -18,6 +18,7 @@ import { Persona } from '../interfaces/persona.interface'
 import { TokenService } from 'src/app/boton/services/token.service'
 import { User } from '../interfaces/user.interface'
 import { Preferences } from '@capacitor/preferences'
+import { LogOutResponse } from '../interfaces/logout.interface'
 
 @Injectable({
     providedIn: 'root',
@@ -84,6 +85,38 @@ export class AuthService {
                     return throwError(() => error)
                 })
             )
+    }
+
+    logout(): Observable<boolean> {
+        return from(this._tokenService.loadToken()).pipe(
+            switchMap((token) => {
+                if (!token) return of(false)
+
+                const headers = new HttpHeaders({
+                    Authorization: `Bearer ${token}`,
+                    'Content-Type': 'application/json',
+                    Accept: 'application/json',
+                })
+
+                return this._http
+                    .post<LogOutResponse>(
+                        `${this._apiUrl}/api/logout`,
+                        {},
+                        { headers }
+                    )
+                    .pipe(
+                        tap(async () => {
+                            await this.removeFromStorage('user')
+                            await this.removeFromStorage('persona')
+                            await this._tokenService.removeToken()
+                            this._persona = {} as Persona
+                            this._account = {} as User
+                        }),
+                        map(() => true),
+                        catchError(() => of(false))
+                    )
+            })
+        )
     }
 
     checkAuthentication(): Observable<boolean> {

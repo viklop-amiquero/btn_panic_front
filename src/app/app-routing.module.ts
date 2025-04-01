@@ -7,13 +7,13 @@ import { RoutesName } from './shared/routes/routes'
 const routes: Routes = [
     {
         // path: 'auth',
-        path: RoutesName.AUTH,
+        path: RoutesName.AUTH.route,
         loadChildren: () =>
             import('./auth/auth.module').then((m) => m.AuthModule),
         canActivate: [publicActivateGuard],
     },
     {
-        path: RoutesName.INDEX,
+        path: RoutesName.INDEX.route,
         // path: 'index',
         loadChildren: () =>
             import('./boton/boton.module').then((m) => m.BotonModule),
@@ -21,7 +21,7 @@ const routes: Routes = [
     },
     {
         path: '**',
-        redirectTo: RoutesName.AUTH,
+        redirectTo: RoutesName.AUTH.route,
         pathMatch: 'full',
     },
 ]

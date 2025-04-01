@@ -79,7 +79,7 @@ export class HomePageComponent implements OnInit {
                 'warning'
             )
             // this._router.navigate(['/auth'])
-            this._router.navigate([RoutesName.AUTH])
+            this._router.navigate([RoutesName.AUTH.route])
             return
         }
         this._botonService.getCategories(this._token).subscribe({
