@@ -13,7 +13,6 @@ import { ToastService } from '../../services/toast.service'
 export class SideMenuComponent implements OnInit {
     // public menuRoutes = Object.values(RoutesName)
     public routesName = RoutesName
-
     constructor(
         private _authService: AuthService,
         private _router: Router,

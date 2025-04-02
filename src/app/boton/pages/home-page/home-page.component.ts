@@ -9,6 +9,8 @@ import { ValidatorsService } from 'src/app/shared/services/validators.service'
 import { ReporteRegister } from '../../interfaces/reporte.interface'
 import { BtnPanicComponent } from '../../components/btn-panic/btn-panic.component'
 import { RoutesName } from 'src/app/shared/routes/routes'
+import { ModalController } from '@ionic/angular'
+import { WarningModalComponent } from '../../../shared/components/modals/warning-modal/warning-modal.component'
 
 @Component({
     selector: 'app-home-page',
@@ -30,13 +32,23 @@ export class HomePageComponent implements OnInit {
         private _toastService: ToastService,
         private _router: Router,
         private _tokenService: TokenService,
-        private _validatorService: ValidatorsService
+        private _validatorService: ValidatorsService,
+        private _modalController: ModalController
     ) {}
+
+    async showWarningModal() {
+        const modal = await this._modalController.create({
+            component: WarningModalComponent,
+            backdropDismiss: false, // El usuario debe aceptar el mensaje antes de cerrar
+        })
+
+        await modal.present()
+    }
 
     async ngOnInit() {
         this._token = await this._tokenService.loadToken()
         this.getCategorias()
-
+        this.showWarningModal()
         // solucion are-hidden
         const observer = new MutationObserver((mutations) => {
             const outlet = document.querySelector('ion-router-outlet')
