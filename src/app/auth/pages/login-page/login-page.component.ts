@@ -20,7 +20,7 @@ import { RoutesName } from 'src/app/shared/routes/routes'
 export class LoginPageComponent implements OnInit {
     public title: string = 'iniciar sesión'
     private _fb: FormBuilder = new FormBuilder()
-
+    public routesName = RoutesName
     constructor(
         private _validator: ValidatorsService,
         private _toast: ToastService,

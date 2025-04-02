@@ -1,4 +1,95 @@
-<header-auth [title]="title"></header-auth>
+<form [formGroup]="registerForm" (ngSubmit)="onSubmit($event)">
+    <ion-item>
+        <ion-label position="floating">Nombres</ion-label>
+        <ion-input formControlName="name"></ion-input>
+    </ion-item>
+
+    <ion-text color="danger" *ngIf="isInvalidField('name')">
+        Nombre es inválido.
+    </ion-text>
+
+    <ion-item>
+        <ion-label position="floating">Apellidos</ion-label>
+        <ion-input formControlName="apellido"></ion-input>
+    </ion-item>
+    <ion-text color="danger" *ngIf="isInvalidField('apellido')">
+        El apellido es inválido
+    </ion-text>
+
+    <ion-item>
+        <ion-label position="floating">Dirección</ion-label>
+        <ion-input formControlName="direccion_domicilio"></ion-input>
+    </ion-item>
+    <ion-text color="danger" *ngIf="isInvalidField('direccion_domicilio')">
+        La dircción es invalida.
+    </ion-text>
+
+    <ion-item>
+        <ion-label position="floating">DNI</ion-label>
+        <ion-input formControlName="dni"></ion-input>
+    </ion-item>
+
+    <ion-text color="danger" *ngIf="isInvalidField('dni')">
+        El DNI es inválido.
+    </ion-text>
+
+    <ion-item>
+        <ion-label position="floating">Celular</ion-label>
+        <ion-input formControlName="telefono"></ion-input>
+    </ion-item>
+
+    <ion-text color="danger" *ngIf="isInvalidField('telefono')">
+        El celular es inválido.
+    </ion-text>
+
+    <ion-item>
+        <ion-label position="floating">Email</ion-label>
+        <ion-input type="email" formControlName="email"></ion-input>
+    </ion-item>
+    <ion-text color="danger" *ngIf="isInvalidField('email')">
+        Ingrese un email válido
+    </ion-text>
+
+    <ion-item>
+        <ion-label position="floating">Contraseña</ion-label>
+        <ion-input type="password" formControlName="password"></ion-input>
+    </ion-item>
+
+    <ion-text color="danger" *ngIf="isInvalidField('password')">
+        La contraseña debe tener al menos 6 caracteres
+    </ion-text>
+
+    <ion-item>
+        <ion-label position="floating">Repetir Contraseña</ion-label>
+        <ion-input
+            type="password"
+            formControlName="password_confirmation"
+        ></ion-input>
+    </ion-item>
+
+    <ion-text color="danger" *ngIf="isInvalidField('password_confirmation')">
+        Las contraseñas no coinciden
+    </ion-text>
+
+    <ion-button
+        expand="full"
+        color="success"
+        type="submit"
+        [disabled]="registerForm.invalid"
+    >
+        Registrarse
+    </ion-button>
+    <div class="links-container">
+        <a
+            [routerLink]="['/', routesName.AUTH.route, routesName.LOGIN.route]"
+            class="login-link"
+        >
+            ¿Ya tienes una cuenta? Inicia sesión
+        </a>
+    </div>
+</form>
+
+<!-- <header-auth [title]="title"></header-auth>
 
 <ion-content class="ion-padding">
     <form [formGroup]="registerForm" (ngSubmit)="onSubmit($event)">
@@ -88,4 +179,4 @@
             Registrarse
         </ion-button>
     </form>
-</ion-content>
+</ion-content> -->

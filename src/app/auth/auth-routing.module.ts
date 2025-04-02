@@ -3,22 +3,24 @@ import { RouterModule, Routes } from '@angular/router'
 import { LoginPageComponent } from './pages/login-page/login-page.component'
 import { RegisterPageComponent } from './pages/register-page/register-page.component'
 import { RoutesName } from '../shared/routes/routes'
+import { AuthLayoutComponent } from './layout/auth-layout/auth-layout.component'
 
 const routes: Routes = [
     {
-        // path: 'login',
-        path: RoutesName.LOGIN.route,
-        component: LoginPageComponent,
-    },
-    {
-        // path: 'register',
-        path: RoutesName.REGISTER.route,
-        component: RegisterPageComponent,
-    },
-    {
-        path: '**',
-        redirectTo: RoutesName.LOGIN.route,
-        // redirectTo: 'login',
+        path: '',
+        component: AuthLayoutComponent,
+        children: [
+            { path: RoutesName.LOGIN.route, component: LoginPageComponent },
+            {
+                path: RoutesName.REGISTER.route,
+                component: RegisterPageComponent,
+            },
+            {
+                path: '**',
+                redirectTo: RoutesName.LOGIN.route,
+                // redirectTo: 'login',
+            },
+        ],
     },
 ]
 

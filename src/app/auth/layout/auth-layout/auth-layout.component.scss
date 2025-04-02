@@ -1,0 +1,26 @@
+.header-container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    padding: 10px;
+}
+
+.logo {
+    width: 60px;
+}
+
+.header-note {
+    font-size: 14px;
+    font-weight: bold;
+    text-align: center;
+    color: black;
+}
+
+.titulo {
+    margin: 0;
+    font-weight: 900;
+    font-size: 18px;
+    text-align: center;
+    padding-bottom: 10px;
+}

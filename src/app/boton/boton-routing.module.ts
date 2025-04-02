@@ -17,6 +17,11 @@ const routes: Routes = [
                 component: ListReportsPageComponent,
             },
             { path: RoutesName.PROFILE.route, component: ProfilePageComponent },
+            {
+                path: '**',
+                redirectTo: RoutesName.INDEX.route,
+                // redirectTo: 'login',
+            },
         ],
     },
 ]

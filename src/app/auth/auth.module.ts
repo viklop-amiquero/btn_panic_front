@@ -8,12 +8,14 @@ import { ReactiveFormsModule } from '@angular/forms'
 
 import { IonicModule } from '@ionic/angular'
 import { HeaderAuthComponent } from './components/header-auth/header-auth.component'
+import { AuthLayoutComponent } from './layout/auth-layout/auth-layout.component'
 
 @NgModule({
     declarations: [
         RegisterPageComponent,
         LoginPageComponent,
         HeaderAuthComponent,
+        AuthLayoutComponent,
     ],
     imports: [
         CommonModule,

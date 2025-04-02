@@ -16,7 +16,7 @@ import { RoutesName } from 'src/app/shared/routes/routes'
 export class RegisterPageComponent implements OnInit {
     public title: string = 'registrarse'
     private _fb: FormBuilder = new FormBuilder()
-
+    public routesName = RoutesName
     constructor(
         private _authService: AuthService,
         private _toast: ToastService,

@@ -1,7 +1,17 @@
-.titulo {
-    margin: 0;
-    font-weight: 900;
-    font-size: 18px;
-    text-align: center;
-    padding-bottom: 10px;
+.links-container {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 10px;
+}
+
+.register-link,
+.forgot-password-link {
+    font-size: 14px;
+    color: #3880ff;
+    text-decoration: none;
+}
+
+.register-link:hover,
+.forgot-password-link:hover {
+    text-decoration: underline;
 }

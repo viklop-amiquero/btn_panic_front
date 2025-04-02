@@ -1,7 +1,14 @@
-.titulo {
-    margin: 0;
-    font-weight: 900;
-    font-size: 18px;
+.links-container {
     text-align: center;
-    padding-bottom: 10px;
+    margin-top: 15px;
+}
+
+.register-link, .login-link {
+    color: #3880ff; /* Color de enlace */
+    font-size: 14px;
+    text-decoration: none;
+}
+
+.register-link:hover, .login-link:hover {
+    text-decoration: underline;
 }
