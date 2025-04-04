@@ -56,9 +56,9 @@ export class AuthService {
         )
     }
 
-    get isAuthenticated(): boolean {
-        return !!this._account?.id && !!this._persona?.id
-    }
+    // get isAuthenticated(): boolean {
+    //     return !!this._account?.id && !!this._persona?.id
+    // }
 
     // get persona(): Persona | null {
     //     return this._persona
