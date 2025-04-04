@@ -1,4 +1,4 @@
 export const environment = {
     production: false,
-    baseUrl: 'ftp.muniandresavelinocaceresdorregaray.gob.pe',
+    baseUrl: 'http://127.0.0.1:8000',
 }
