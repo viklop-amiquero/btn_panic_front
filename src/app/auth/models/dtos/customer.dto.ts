@@ -5,8 +5,8 @@ export interface CustomerDto {
     username: string
     verificado: null
     estado: string
-    usuario_crea: null
-    usuario_modifica: null
-    created_at: Date
-    updated_at: Date
+    usuario_crea?: number
+    usuario_modifica?: number
+    created_at: string
+    updated_at?: string
 }
