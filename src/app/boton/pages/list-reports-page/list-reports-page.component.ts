@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core'
-import { Report } from '../../interfaces/reports.interface'
 import { BotonService } from '../../services/boton.service'
+import { CustomerReportDto } from '../../models/dtos/customer-reports-paged.dto'
 
 @Component({
     selector: 'app-list-reports-page',
@@ -9,7 +9,7 @@ import { BotonService } from '../../services/boton.service'
     standalone: false,
 })
 export class ListReportsPageComponent implements OnInit {
-    public reports!: Report[]
+    public reports!: CustomerReportDto[]
 
     constructor(private _botonService: BotonService) {}
 

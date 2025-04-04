@@ -1,4 +1,4 @@
-export interface User {
+export interface CustomerDto {
     id: number
     persona_id: number
     clave_id: number

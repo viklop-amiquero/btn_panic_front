@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core'
-import { Persona } from 'src/app/auth/interfaces/persona.interface'
-import { User } from 'src/app/auth/interfaces/user.interface'
+import { Persona } from 'src/app/models/domain/persona.interface'
 import { AuthService } from 'src/app/auth/services/auth.service'
+import { Customer } from 'src/app/models/domain/customer.interface'
 
 @Component({
     selector: 'app-profile-page',
@@ -11,13 +11,13 @@ import { AuthService } from 'src/app/auth/services/auth.service'
 })
 export class ProfilePageComponent implements OnInit {
     public persona: Persona = {} as Persona
-    public user: User = {} as User
+    public customer: Customer = {} as Customer
     constructor(private _authService: AuthService) {}
 
     async ngOnInit() {
         await this._authService.loadStoredData()
 
         this.persona = this._authService._persona || ({} as Persona)
-        this.user = this._authService._account || ({} as User)
+        this.customer = this._authService._account || ({} as Customer)
     }
 }

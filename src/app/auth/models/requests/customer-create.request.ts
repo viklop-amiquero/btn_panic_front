@@ -1,4 +1,4 @@
-export interface CustomerRegister {
+export interface CustomerCreateRequest {
     name: string
     apellido: string
     direccion_domicilio: string

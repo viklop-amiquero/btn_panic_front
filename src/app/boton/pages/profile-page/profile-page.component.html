@@ -12,7 +12,8 @@
                 <img src="assets/avatar.png" alt="Avatar del usuario" />
             </ion-avatar>
             <ion-card-title
-                >{{ persona.nombre }} {{ persona.apellido }}</ion-card-title
+                >{{ persona.nombre | titlecase }}
+                {{ persona.apellido | titlecase }}</ion-card-title
             >
             <ion-card-subtitle
                 [ngClass]="{
@@ -32,7 +33,7 @@
                     <ion-icon name="person-outline" slot="start"></ion-icon>
                     <ion-label
                         ><strong>Usuario:</strong>
-                        {{ user.username }}</ion-label
+                        {{ customer.username }}</ion-label
                     >
                 </ion-item>
 

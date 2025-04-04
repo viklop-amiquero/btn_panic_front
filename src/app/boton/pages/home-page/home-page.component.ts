@@ -4,13 +4,13 @@ import { BotonService } from '../../services/boton.service'
 import { ToastService } from 'src/app/shared/services/toast.service'
 import { Router } from '@angular/router'
 import { TokenService } from '../../services/token.service'
-import { Categoria } from '../../interfaces/categoria.interface'
 import { ValidatorsService } from 'src/app/shared/services/validators.service'
-import { ReporteRegister } from '../../interfaces/reporte.interface'
 import { BtnPanicComponent } from '../../components/btn-panic/btn-panic.component'
 import { RoutesName } from 'src/app/shared/routes/routes'
 import { ModalController } from '@ionic/angular'
 import { WarningModalComponent } from '../../../shared/components/modals/warning-modal/warning-modal.component'
+import { ReporteCreateRequest } from '../../models/requests/reporte-create.request'
+import { CategoriaDto } from '../../models/dtos/categoria-list.dto'
 
 @Component({
     selector: 'app-home-page',
@@ -23,7 +23,7 @@ export class HomePageComponent implements OnInit {
     btnPanic!: BtnPanicComponent
     private _fb: FormBuilder = new FormBuilder()
     private _token!: string
-    public categorias: Categoria[] = []
+    public categorias: CategoriaDto[] = []
     public latitud: number | null = null
     public longitud: number | null = null
 
@@ -116,7 +116,7 @@ export class HomePageComponent implements OnInit {
         return this._validatorService.isInvalidField(this.homeForm, field)
     }
 
-    getCurrentReport(): ReporteRegister {
+    getCurrentReport(): ReporteCreateRequest {
         const reporte = this.homeForm.value
         return reporte
     }
@@ -137,14 +137,14 @@ export class HomePageComponent implements OnInit {
         try {
             const ubicacion = await this._botonService.getLocation()
 
-            const reporte: ReporteRegister = {
+            const reporte: ReporteCreateRequest = {
                 ...this.getCurrentReport(),
                 latitud: ubicacion.latitud,
                 longitud: ubicacion.longitud,
             }
 
             // console.log(reporte)
-            this._botonService.addReport(reporte, this._token).subscribe({
+            this._botonService.CreateReport(reporte, this._token).subscribe({
                 next: (resp) => {
                     this._toastService.showToast(`${resp.message}`, 'success')
 

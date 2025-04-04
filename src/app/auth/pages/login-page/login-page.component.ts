@@ -1,16 +1,17 @@
 import { Component, OnInit } from '@angular/core'
 import { ValidatorsService } from 'src/app/shared/services/validators.service'
 import { FormBuilder, FormGroup, Validators } from '@angular/forms'
+
+import { Preferences } from '@capacitor/preferences'
 import { AuthService } from '../../services/auth.service'
-import {
-    LoginCredentials,
-    LoginSuccess,
-} from '../../interfaces/login.interface'
 import { ToastService } from 'src/app/shared/services/toast.service'
 import { Router } from '@angular/router'
 
-import { Preferences } from '@capacitor/preferences'
 import { RoutesName } from 'src/app/shared/routes/routes'
+
+import { AuthRequest } from '../../models/requests/auth.request'
+import { AuthResponse } from '../../models/responses/auth.response'
+
 @Component({
     selector: 'app-login-page',
     standalone: false,
@@ -21,6 +22,7 @@ export class LoginPageComponent implements OnInit {
     public title: string = 'iniciar sesión'
     private _fb: FormBuilder = new FormBuilder()
     public routesName = RoutesName
+    public loading = true
     constructor(
         private _validator: ValidatorsService,
         private _toast: ToastService,
@@ -41,7 +43,7 @@ export class LoginPageComponent implements OnInit {
 
     ngOnInit() {}
 
-    getCurrentCredentials(): LoginCredentials {
+    getCurrentCredentials(): AuthRequest {
         const data = this.loginForm.value
         return data
     }
@@ -67,7 +69,7 @@ export class LoginPageComponent implements OnInit {
         }
 
         this._authService.login(this.getCurrentCredentials()).subscribe({
-            next: async (resp: LoginSuccess) => {
+            next: async (resp: AuthResponse) => {
                 // ⬅️ Añadir async aquí
                 if (!resp.token) {
                     this._toast.showToast(

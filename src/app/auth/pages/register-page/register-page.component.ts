@@ -1,11 +1,14 @@
 import { Component, OnInit } from '@angular/core'
 import { FormBuilder, FormGroup, Validators } from '@angular/forms'
-import { CustomerRegister } from '../../interfaces/customer.interface'
+
+import { Router } from '@angular/router'
 import { AuthService } from '../../services/auth.service'
+
 import { ToastService } from 'src/app/shared/services/toast.service'
 import { ValidatorsService } from 'src/app/shared/services/validators.service'
-import { Router } from '@angular/router'
+
 import { RoutesName } from 'src/app/shared/routes/routes'
+import { CustomerCreateRequest } from '../../models/requests/customer-create.request'
 
 @Component({
     selector: 'app-register-page',
@@ -86,7 +89,7 @@ export class RegisterPageComponent implements OnInit {
         return this._validator.isInvalidField(this.registerForm, field)
     }
 
-    getCurrentCustomer(): CustomerRegister {
+    getCurrentCustomer(): CustomerCreateRequest {
         const customer = this.registerForm.value
         return customer
     }
@@ -107,8 +110,9 @@ export class RegisterPageComponent implements OnInit {
             }
         }
 
-        this._authService.addCustomer(this.getCurrentCustomer()).subscribe({
+        this._authService.createCustomer(this.getCurrentCustomer()).subscribe({
             next: (resp) => {
+                // console.log(resp.message)
                 this._toast.showToast(`${resp.message}`, 'success')
 
                 // resetear formulario

@@ -1,8 +1,4 @@
-export interface ReporteAddSucces {
-    message: string
-}
-
-export interface ReporteRegister {
+export interface ReporteCreateRequest {
     descripcion: string
     direccion: string
     imagen?: string
