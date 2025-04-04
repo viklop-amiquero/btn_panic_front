@@ -101,34 +101,18 @@ export class AuthService {
                 headers: this.defaultHeaders,
             })
             .pipe(
-                catchError((error) => {
-                    // Convertimos el error en una respuesta controlada
-                    return of({
-                        error: true,
-                        message:
-                            error.error?.message || 'Error de autenticación',
-                    } as unknown as AuthResponse)
-                })
+                tap(async (response) => {
+                    this._account = response.user
+                    await this.setStorageItem('user', response.user)
+                }),
+                catchError((error) =>
+                    throwError(() => {
+                        status: error.status
+                        error: error.error
+                    })
+                )
             )
     }
-    // login(credentials: AuthRequest): Observable<AuthResponse> {
-    //     return this.http
-    //         .post<AuthResponse>(`${this.apiUrl}/api/login`, credentials, {
-    //             headers: this.defaultHeaders,
-    //         })
-    //         .pipe(
-    //             tap(async (response) => {
-    //                 this._account = response.user
-    //                 await this.setStorageItem('user', response.user)
-    //             }),
-    //             catchError((error) =>
-    //                 throwError(() => {
-    //                     status: error.status
-    //                     error: error.error
-    //                 })
-    //             )
-    //         )
-    // }
 
     logout(): Observable<boolean> {
         return this.authHeaders.pipe(
