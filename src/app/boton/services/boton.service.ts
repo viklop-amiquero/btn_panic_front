@@ -1,6 +1,14 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http'
 import { Injectable } from '@angular/core'
-import { catchError, Observable, throwError, from, switchMap } from 'rxjs'
+import {
+    catchError,
+    Observable,
+    throwError,
+    from,
+    switchMap,
+    map,
+    of,
+} from 'rxjs'
 
 import { Geolocation } from '@capacitor/geolocation'
 
@@ -87,6 +95,21 @@ export class BotonService {
                 )
             }),
             catchError((error) => throwError(() => error))
+        )
+    }
+
+    deleteCustomerReport(id: number): Observable<boolean> {
+        return from(this._tokenService.loadToken()).pipe(
+            switchMap((token) => {
+                return this._http.delete(`${this._apiUrl}/api/reporte/${id}`, {
+                    headers: this.getHeaders(token),
+                })
+            }),
+            map(() => true),
+            catchError((err) => {
+                console.log({ error: err })
+                return throwError(() => err)
+            })
         )
     }
 }

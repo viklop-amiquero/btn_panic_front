@@ -8,20 +8,20 @@ import { Router } from '@angular/router'
     standalone: false,
 })
 export class AuthLayoutComponent implements OnInit {
-    title: string = 'Bienvenido'
+    // title: string = 'Bienvenido'
 
-    constructor(private _router: Router) {
-        this.updateTitle()
+    constructor() {
+        // this.updateTitle()
     }
 
-    private updateTitle() {
-        const path = this._router.url
-        if (path.includes('/login')) {
-            this.title = 'Iniciar Sesión'
-        } else if (path.includes('/register')) {
-            this.title = 'Registrarse'
-        }
-    }
+    // private updateTitle() {
+    //     const path = this._router.url
+    //     if (path.includes('/login')) {
+    //         this.title = 'Iniciar Sesión'
+    //     } else if (path.includes('/register')) {
+    //         this.title = 'Registrarse'
+    //     }
+    // }
 
     ngOnInit() {}
 }

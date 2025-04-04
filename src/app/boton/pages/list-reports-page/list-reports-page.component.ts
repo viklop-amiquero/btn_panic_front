@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core'
 import { BotonService } from '../../services/boton.service'
 import { CustomerReportDto } from '../../models/dtos/customer-reports-paged.dto'
+import { AlertService } from 'src/app/shared/services/alert.service'
+import { ToastService } from 'src/app/shared/services/toast.service'
 
 @Component({
     selector: 'app-list-reports-page',
@@ -11,7 +13,11 @@ import { CustomerReportDto } from '../../models/dtos/customer-reports-paged.dto'
 export class ListReportsPageComponent implements OnInit {
     public reports!: CustomerReportDto[]
 
-    constructor(private _botonService: BotonService) {}
+    constructor(
+        private _botonService: BotonService,
+        private _alertService: AlertService,
+        private _toastService: ToastService
+    ) {}
 
     getReports() {
         this._botonService.getReports().subscribe(({ data }) => {
@@ -51,5 +57,38 @@ export class ListReportsPageComponent implements OnInit {
         }
     }
 
-    deleteReport(id: number) {}
+    async deleteReport(id: number) {
+        const item = 'el reporte'
+        const confirm = await this._alertService.showDeleteConfirmation(item)
+
+        if (!confirm) {
+            // console.log('eliminación cancelada.')
+            return
+        }
+        this._botonService.deleteCustomerReport(id).subscribe({
+            next: (value) => {
+                if (!value) {
+                    this._toastService.showToast(
+                        'No se pudo completar la operación.',
+                        'danger'
+                    )
+                }
+                this._toastService.showToast(
+                    'Reporte eliminado exitosamente.',
+                    'success'
+                )
+
+                // Actualizar el arreglo
+                this.reports = this.reports.map((report) =>
+                    report.id === id ? { ...report, estado: '0' } : report
+                )
+            },
+            error: () => {
+                this._toastService.showToast(
+                    'Ocurrió un error, intentelo más tarde.',
+                    'danger'
+                )
+            },
+        })
+    }
 }

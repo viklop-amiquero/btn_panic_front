@@ -91,22 +91,41 @@ export class AuthService {
             .pipe(catchError((error) => throwError(() => error)))
     }
 
-    login(credentials: AuthRequest): Observable<AuthResponse> {
+    // login(credentials: AuthRequest): Observable<AuthResponse> {
+    //     return this.http
+    //         .post<AuthResponse>(`${this.apiUrl}/api/login`, credentials, {
+    //             headers: this.defaultHeaders,
+    //         })
+    //         .pipe(
+    //             tap(async (response) => {
+    //                 this._account = response.user
+    //                 await this.setStorageItem('user', response.user)
+    //             }),
+    //             catchError((error) =>
+    //                 throwError(() => {
+    //                     status: error.status
+    //                     error: error.error
+    //                 })
+    //             )
+    //         )
+    // }
+
+    login(data: AuthRequest): Observable<AuthResponse> {
+        const headers = new HttpHeaders({
+            'Content-Type': 'application/json',
+            Accept: 'application/json',
+        })
+
         return this.http
-            .post<AuthResponse>(`${this.apiUrl}/api/login`, credentials, {
-                headers: this.defaultHeaders,
-            })
+            .post<AuthResponse>(`${this.apiUrl}/api/login`, data, { headers })
             .pipe(
                 tap(async (response) => {
                     this._account = response.user
                     await this.setStorageItem('user', response.user)
                 }),
-                catchError((error) =>
-                    throwError(() => {
-                        status: error.status
-                        error: error.error
-                    })
-                )
+                catchError((error) => {
+                    return throwError(() => error)
+                })
             )
     }
 
