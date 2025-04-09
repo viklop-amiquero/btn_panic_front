@@ -12,7 +12,7 @@ export class AlertService {
     ): Promise<boolean> {
         const alert = await this._alertController.create({
             header: 'Confirmar',
-            message: `¿Estás seguro de eliminar ${itemName}? Esta acción no se puede deshacer.`,
+            message: `¿Estás seguro de eliminar ${itemName}?`,
             cssClass: 'danger-alert',
             buttons: [
                 {
@@ -22,14 +22,17 @@ export class AlertService {
                 },
                 {
                     text: 'Eliminar',
+                    role: 'confirm',
                     cssClass: 'alert-delete-button',
-                    handler: () => true,
+                    // handler: () => true,
                 },
             ],
+            // backdropDismiss: false,
         })
 
         await alert.present()
         const { role } = await alert.onDidDismiss()
-        return role !== 'cancel'
+        // return role !== 'cancel'
+        return role === 'confirm'
     }
 }

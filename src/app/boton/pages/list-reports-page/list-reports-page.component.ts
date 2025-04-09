@@ -62,8 +62,11 @@ export class ListReportsPageComponent implements OnInit {
         const confirm = await this._alertService.showDeleteConfirmation(item)
 
         if (!confirm) {
-            // console.log('eliminación cancelada.')
             return
+            // console.log(!!confirm)
+            // console.log(confirm)
+            // console.log('eliminación cancelada.')
+            // return
         }
         this._botonService.deleteCustomerReport(id).subscribe({
             next: (value) => {
