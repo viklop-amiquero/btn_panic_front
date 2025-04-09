@@ -70,7 +70,6 @@ export class LoginPageComponent implements OnInit {
 
         this._authService.login(this.getCurrentCredentials()).subscribe({
             next: async (resp: AuthResponse) => {
-                // ⬅️ Añadir async aquí
                 if (!resp.token) {
                     this._toast.showToast(
                         'Respuesta inesperada del servidor.',
@@ -79,10 +78,9 @@ export class LoginPageComponent implements OnInit {
                     return
                 }
 
-                // Almacenar el token de manera correcta
+                // Almacenar el token
                 await Preferences.set({ key: 'authToken', value: resp.token })
 
-                // Resetear formulario
                 this.loginForm.reset()
 
                 // Redirigir a home
