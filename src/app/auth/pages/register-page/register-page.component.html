@@ -1,5 +1,5 @@
 <p class="titulo">{{ title | titlecase }}</p>
-
+<!-- <ion-content class="ion-padding" scroll="true"> -->
 <form [formGroup]="registerForm" (ngSubmit)="onSubmit($event)">
     <ion-item>
         <ion-label position="floating">Nombres</ion-label>
@@ -58,7 +58,7 @@
     </ion-item>
 
     <ion-text color="danger" *ngIf="isInvalidField('password')">
-        La contraseña debe tener al menos 6 caracteres
+        La contraseña debe tener al menos 6 caracteres, letras y números.
     </ion-text>
 
     <ion-item>
@@ -90,6 +90,7 @@
         </a>
     </div>
 </form>
+<!-- </ion-content> -->
 
 <!-- <header-auth [title]="title"></header-auth>
 
