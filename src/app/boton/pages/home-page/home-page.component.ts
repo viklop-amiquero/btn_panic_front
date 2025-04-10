@@ -26,6 +26,7 @@ export class HomePageComponent implements OnInit {
     public categorias: CategoriaDto[] = []
     public latitud: number | null = null
     public longitud: number | null = null
+    public messageShow: boolean = true
 
     constructor(
         private _botonService: BotonService,
@@ -148,9 +149,10 @@ export class HomePageComponent implements OnInit {
                 next: (resp) => {
                     this._toastService.showToast(`${resp.message}`, 'success')
 
+                    this.messageShow = false
                     setTimeout(() => {
                         this.resetForm()
-                    }, 1000)
+                    }, 2000)
                 },
                 error: (err) => {
                     if (!err.error || !err.error.errors) {

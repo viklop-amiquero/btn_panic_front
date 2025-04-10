@@ -40,6 +40,12 @@
                 [isFormValid]="homeForm.valid"
                 (onSubmit)="onBotonPanic($event)"
             ></boton-btn-panic>
+            <p
+                *ngIf="messageShow"
+                style="text-align: center; color: #a1a1a1; margin: 0px"
+            >
+                Para activar mantén presionado
+            </p>
         </div>
     </form>
 </ion-content>
