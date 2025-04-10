@@ -7,6 +7,8 @@ import { Browser } from '@capacitor/browser'
     standalone: false,
 })
 export class FooterComponent implements OnInit {
+    public year = new Date()
+
     constructor() {}
 
     ngOnInit() {}

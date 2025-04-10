@@ -1,33 +1,18 @@
 <ion-footer>
     <ion-toolbar>
-        <!-- <ion-title></ion-title> -->
-
         <ion-note style="text-align: center; font-weight: bold; display: block">
-            Todos Los Derechos Reservados &copy; 2025.
+            Todos Los Derechos Reservados &copy; {{ year.getFullYear() }} | OTI
         </ion-note>
-        <ion-note class="developer-note">
+        <ion-note style="text-align: center; font-weight: bold; display: block">
             Desarrollado por
             <a
-                class="developer-link"
                 (click)="openExternalLink()"
+                style="cursor: pointer"
                 target="_blank"
-                rel="noopener noreferrer"
             >
                 vik<span class="highlight-text">lop</span>
                 <span class="link-icon">↗</span>
             </a>
         </ion-note>
-        <!-- <ion-note style="text-align: center; font-weight: bold; display: block">
-            Desarrollado por -->
-        <!-- href="https://viklop-amiquero.github.io/personal-web-site/" -->
-        <!-- <a
-                class="footer-link"
-                (click)="openExternalLink()"
-                target="_blank"
-                rel="noopener noreferrer"
-            >
-                vik<span class="footer-span">lop</span>
-            </a>
-        </ion-note> -->
     </ion-toolbar>
 </ion-footer>
