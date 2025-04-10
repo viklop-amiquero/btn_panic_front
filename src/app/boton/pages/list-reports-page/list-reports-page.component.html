@@ -32,11 +32,11 @@
                 </span>
             </ion-label>
             <ion-button
+                fill="clear"
                 *ngIf="report.estado === '1'"
-                color="danger"
                 (click)="deleteReport(report.id)"
             >
-                <ion-icon name="trash"></ion-icon>
+                <ion-icon name="trash" style="color: #fb2c36"></ion-icon>
             </ion-button>
         </ion-item>
     </ion-list>
