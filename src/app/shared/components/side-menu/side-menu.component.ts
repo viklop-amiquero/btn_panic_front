@@ -3,6 +3,7 @@ import { RoutesName } from '../../routes/routes'
 import { AuthService } from 'src/app/auth/services/auth.service'
 import { Router } from '@angular/router'
 import { ToastService } from '../../services/toast.service'
+import { MenuController } from '@ionic/angular'
 
 @Component({
     selector: 'shared-side-menu',
@@ -16,7 +17,8 @@ export class SideMenuComponent implements OnInit {
     constructor(
         private _authService: AuthService,
         private _router: Router,
-        private _toast: ToastService
+        private _toast: ToastService,
+        private _menuCtrl: MenuController
     ) {}
 
     ngOnInit() {}
@@ -41,5 +43,9 @@ export class SideMenuComponent implements OnInit {
             },
         })
         // alert('cerrando sesión')
+    }
+
+    closeMenu() {
+        this._menuCtrl.close()
     }
 }

@@ -10,6 +10,7 @@
                 [routerLink]="routesName.INDEX.route"
                 routerLinkActive="active"
                 [routerLinkActiveOptions]="{ exact: true }"
+                (click)="closeMenu()"
             >
                 <ion-icon
                     name="home-outline"
@@ -22,6 +23,7 @@
             <ion-item
                 [routerLink]="routesName.REPORTS.route"
                 routerLinkActive="active"
+                (click)="closeMenu()"
             >
                 <ion-icon
                     name="refresh-circle-outline"
@@ -34,6 +36,7 @@
             <ion-item
                 [routerLink]="routesName.PROFILE.route"
                 routerLinkActive="active"
+                (click)="closeMenu()"
             >
                 <ion-icon
                     name="person-circle-outline"
