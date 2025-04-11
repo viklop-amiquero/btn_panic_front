@@ -4,6 +4,8 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms'
 import { Router } from '@angular/router'
 import { AuthService } from '../../services/auth.service'
 
+import { Keyboard } from '@capacitor/keyboard'
+
 import { ToastService } from 'src/app/shared/services/toast.service'
 import { ValidatorsService } from 'src/app/shared/services/validators.service'
 
@@ -83,7 +85,9 @@ export class RegisterPageComponent implements OnInit {
         }
     )
 
-    ngOnInit() {}
+    ngOnInit() {
+        Keyboard.setScroll({ isDisabled: false }) // permite que ionic maneje el scroll con el teclado
+    }
 
     isInvalidField(field: string): boolean | null {
         return this._validator.isInvalidField(this.registerForm, field)

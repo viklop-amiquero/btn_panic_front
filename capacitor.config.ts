@@ -20,6 +20,10 @@ const config: CapacitorConfig = {
             layoutName: 'launch_screen',
             useDialog: false,
         },
+        Keyboard: {
+            resize: 'ionic' as any, // o 'ionic'
+            resizeOnFullScreen: true,
+        },
     },
 }
 
