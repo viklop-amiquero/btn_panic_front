@@ -63,11 +63,8 @@ export class ListReportsPageComponent implements OnInit {
 
         if (!confirm) {
             return
-            // console.log(!!confirm)
-            // console.log(confirm)
-            // console.log('eliminación cancelada.')
-            // return
         }
+
         this._botonService.deleteCustomerReport(id).subscribe({
             next: (value) => {
                 if (!value) {

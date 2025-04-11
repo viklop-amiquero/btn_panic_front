@@ -53,6 +53,18 @@ export class BotonService {
         return headers
     }
 
+    getCategories(token: string): Observable<CategoriaListDto> {
+        return this._http
+            .get<CategoriaListDto>(`${this._apiUrl}/api/categoria`, {
+                headers: this.getHeaders(token),
+            })
+            .pipe(
+                catchError((error) => {
+                    return throwError(() => error)
+                })
+            )
+    }
+
     CreateReport(
         reporte: ReporteCreateRequest,
         token: string
@@ -65,18 +77,6 @@ export class BotonService {
                     headers: this.getHeaders(token),
                 }
             )
-            .pipe(
-                catchError((error) => {
-                    return throwError(() => error)
-                })
-            )
-    }
-
-    getCategories(token: string): Observable<CategoriaListDto> {
-        return this._http
-            .get<CategoriaListDto>(`${this._apiUrl}/api/categoria`, {
-                headers: this.getHeaders(token),
-            })
             .pipe(
                 catchError((error) => {
                     return throwError(() => error)
