@@ -31,4 +31,40 @@ export class ValidatorsService {
     public isInvalidField(form: FormGroup, field: string): boolean | null {
         return form.controls[field].errors && form.controls[field].touched
     }
+
+    getErrorMessage(field: string, form: FormGroup): string | null {
+        const control = form.get(field)
+        if (!control || !control.errors || !control.touched) return null
+
+        if (control.errors['required']) {
+            return 'Este campo es obligatorio.'
+        }
+
+        if (control.errors['minlength']) {
+            const requiredLength = control.errors['minlength'].requiredLength
+            return `Debe tener al menos ${requiredLength} caracteres.`
+        }
+
+        if (control.errors['pattern']) {
+            switch (field) {
+                case 'name':
+                case 'apellido':
+                    return 'Solo se permiten letras.'
+                case 'dni':
+                    return 'El DNI no es válido.'
+                case 'telefono':
+                    return 'El celular no es válido.'
+                case 'email':
+                    return 'Ingrese un email válido.'
+                case 'password':
+                    return 'Debe contener letras y números.'
+            }
+        }
+
+        if (control.errors['notEqual']) {
+            return 'Las contraseñas no coinciden.'
+        }
+
+        return 'Campo inválido.'
+    }
 }

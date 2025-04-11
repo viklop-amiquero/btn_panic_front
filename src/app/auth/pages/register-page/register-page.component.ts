@@ -142,4 +142,8 @@ export class RegisterPageComponent implements OnInit {
             },
         })
     }
+
+    getErrorMessage(field: string): string | null {
+        return this._validator.getErrorMessage(field, this.registerForm)
+    }
 }

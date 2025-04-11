@@ -7,7 +7,8 @@
     </ion-item>
 
     <ion-text color="danger" *ngIf="isInvalidField('name')">
-        Nombre es inválido.
+        {{ getErrorMessage('name') }}
+        <!-- Nombre es inválido. -->
     </ion-text>
 
     <ion-item>
@@ -15,7 +16,8 @@
         <ion-input formControlName="apellido"></ion-input>
     </ion-item>
     <ion-text color="danger" *ngIf="isInvalidField('apellido')">
-        El apellido es inválido
+        {{ getErrorMessage('apellido') }}
+        <!-- El apellido es inválido -->
     </ion-text>
 
     <ion-item>
@@ -32,7 +34,8 @@
     </ion-item>
 
     <ion-text color="danger" *ngIf="isInvalidField('dni')">
-        El DNI es inválido.
+        {{ getErrorMessage('dni') }}
+        <!-- El DNI es inválido. -->
     </ion-text>
 
     <ion-item>
@@ -49,7 +52,8 @@
         <ion-input type="email" formControlName="email"></ion-input>
     </ion-item>
     <ion-text color="danger" *ngIf="isInvalidField('email')">
-        Ingrese un email válido
+        <!-- Ingrese un email válido -->
+        {{ getErrorMessage('email') }}
     </ion-text>
 
     <ion-item>
@@ -58,7 +62,8 @@
     </ion-item>
 
     <ion-text color="danger" *ngIf="isInvalidField('password')">
-        La contraseña debe tener al menos 6 caracteres, letras y números.
+        {{ getErrorMessage('password') }}
+        <!-- La contraseña debe tener al menos 6 caracteres, letras y números. -->
     </ion-text>
 
     <ion-item>
