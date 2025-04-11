@@ -23,6 +23,7 @@ import { AuthRequest } from '../models/requests/auth.request'
 import { Persona } from '../../models/domain/persona.interface'
 import { Customer } from '../../models/domain/customer.interface'
 import { StorageService } from 'src/app/shared/services/storage.service'
+import { CustomerReportDto } from 'src/app/boton/models/dtos/customer-reports-paged.dto'
 @Injectable({
     providedIn: 'root',
 })
@@ -34,6 +35,7 @@ export class AuthService {
 
     public _persona: Persona | null = null
     public _account: Customer | null = null
+    public reports: CustomerReportDto[] | null = null
 
     private get defaultHeaders(): HttpHeaders {
         return new HttpHeaders({
@@ -77,11 +79,22 @@ export class AuthService {
             .post<AuthResponse>(`${this.apiUrl}/api/login`, data, { headers })
             .pipe(
                 tap(async (response) => {
+                    // console.log({
+                    //     user: response.user,
+                    //     reportes: response.reports,
+                    // })
                     this._account = response.user
-                    await this.storageService.setStorageItem(
-                        'user',
-                        response.user
-                    )
+                    // this.reports = response.reports
+                    await Promise.all([
+                        this.storageService.setStorageItem(
+                            'user',
+                            response.user
+                        ),
+                        this.storageService.setStorageItem(
+                            'reports',
+                            response.reports
+                        ),
+                    ])
                 }),
                 catchError((error) => {
                     return throwError(() => error)

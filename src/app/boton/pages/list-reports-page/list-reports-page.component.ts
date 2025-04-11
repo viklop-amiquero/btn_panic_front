@@ -3,6 +3,7 @@ import { BotonService } from '../../services/boton.service'
 import { CustomerReportDto } from '../../models/dtos/customer-reports-paged.dto'
 import { AlertService } from 'src/app/shared/services/alert.service'
 import { ToastService } from 'src/app/shared/services/toast.service'
+import { StorageService } from 'src/app/shared/services/storage.service'
 
 @Component({
     selector: 'app-list-reports-page',
@@ -11,24 +12,30 @@ import { ToastService } from 'src/app/shared/services/toast.service'
     standalone: false,
 })
 export class ListReportsPageComponent implements OnInit {
-    public reports!: CustomerReportDto[]
+    // public reports: CustomerReportDto[]
+    public reports: CustomerReportDto[] = []
 
     constructor(
         private _botonService: BotonService,
         private _alertService: AlertService,
-        private _toastService: ToastService
+        private _toastService: ToastService,
+        private _storageService: StorageService
     ) {}
 
-    getReports() {
-        this._botonService.getReports().subscribe(({ data }) => {
-            // console.log(data)
-            this.reports = data
-            // this.reports = data
-        })
+    async getReports() {
+        this.reports =
+            (await this._storageService.getStorageItem<CustomerReportDto[]>(
+                'reports'
+            )) ?? []
     }
+
+    // async getReports() {
+    //     this.reports = await this._storageService.getStorageItem('reports')
+    // }
 
     ngOnInit() {
         this.getReports()
+        // this._storageService.
     }
 
     getEstadoText(estado: string): string {
