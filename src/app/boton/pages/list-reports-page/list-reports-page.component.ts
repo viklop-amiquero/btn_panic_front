@@ -12,7 +12,8 @@ import { StorageService } from 'src/app/shared/services/storage.service'
     standalone: false,
 })
 export class ListReportsPageComponent implements OnInit {
-    // public reports: CustomerReportDto[]
+    // public reports!: CustomerReportDto[]
+
     public reports: CustomerReportDto[] = []
 
     constructor(
@@ -22,16 +23,21 @@ export class ListReportsPageComponent implements OnInit {
         private _storageService: StorageService
     ) {}
 
+    // getReports() {
+    //     this._botonService.getReports().subscribe(({ data }) => {
+    //         // console.log(data)
+    //         this.reports = data
+    //         // this.reports = data
+    //     })
+    // }
+
+    // lectura del localstorage
     async getReports() {
         this.reports =
             (await this._storageService.getStorageItem<CustomerReportDto[]>(
                 'reports'
             )) ?? []
     }
-
-    // async getReports() {
-    //     this.reports = await this._storageService.getStorageItem('reports')
-    // }
 
     ngOnInit() {
         this.getReports()
