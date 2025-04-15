@@ -86,10 +86,7 @@ export class ListReportsPageComponent implements OnInit {
                         'danger'
                     )
                 }
-                this._toastService.showToast(
-                    'Se anuló el reporte exitosamente.',
-                    'success'
-                )
+                this._toastService.showToast('Se anuló el reporte.', 'success')
 
                 // Actualizar el arreglo
                 this.reports = this.reports.map((report) =>
