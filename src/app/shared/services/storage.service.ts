@@ -18,5 +18,10 @@ export class StorageService {
 
     async removeStorageItem(key: string): Promise<void> {
         await Preferences.remove({ key })
+        // await Preferences.clear()
+    }
+
+    async clearStorage(): Promise<void> {
+        await Preferences.clear()
     }
 }

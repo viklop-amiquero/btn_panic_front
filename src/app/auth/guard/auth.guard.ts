@@ -3,6 +3,7 @@ import { CanActivateFn, Router } from '@angular/router'
 import { Observable, tap } from 'rxjs'
 import { AuthService } from '../services/auth.service'
 import { RoutesName } from 'src/app/shared/routes/routes'
+
 const checkAuthStatus = (): Observable<boolean> => {
     const authService: AuthService = inject(AuthService)
     const router: Router = inject(Router)

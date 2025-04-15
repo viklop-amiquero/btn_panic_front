@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core'
-import { Persona } from 'src/app/models/domain/persona.interface'
-import { AuthService } from 'src/app/auth/services/auth.service'
-import { Customer } from 'src/app/models/domain/customer.interface'
+import { PersonaDto } from 'src/app/auth/models/dtos/persona.dto'
+import { CustomerDto } from 'src/app/auth/models/dtos/customer.dto'
+import { StorageService } from 'src/app/shared/services/storage.service'
 
 @Component({
     selector: 'app-profile-page',
@@ -10,14 +10,17 @@ import { Customer } from 'src/app/models/domain/customer.interface'
     standalone: false,
 })
 export class ProfilePageComponent implements OnInit {
-    public persona: Persona = {} as Persona
-    public customer: Customer = {} as Customer
-    constructor(private _authService: AuthService) {}
+    public persona: PersonaDto = {} as PersonaDto
+    public customer: CustomerDto = {} as CustomerDto
+
+    constructor(private _storageService: StorageService) {}
 
     async ngOnInit() {
-        await this._authService.loadStoredData()
-
-        this.persona = this._authService._persona || ({} as Persona)
-        this.customer = this._authService._account || ({} as Customer)
+        this.persona =
+            (await this._storageService.getStorageItem('persona')) ||
+            ({} as PersonaDto)
+        this.customer =
+            (await this._storageService.getStorageItem('user')) ||
+            ({} as CustomerDto)
     }
 }

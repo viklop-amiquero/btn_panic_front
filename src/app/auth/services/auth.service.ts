@@ -12,18 +12,13 @@ import {
     switchMap,
 } from 'rxjs'
 
-// import { Preferences } from '@capacitor/preferences'
-
 import { TokenService } from 'src/app/boton/services/token.service'
 
 import { CustomerCreateRequest } from '../models/requests/customer-create.request'
 import { CustomerCreateResponse } from '../models/responses/customer-create.response'
 import { AuthResponse } from '../models/responses/auth.response'
 import { AuthRequest } from '../models/requests/auth.request'
-import { Persona } from '../../models/domain/persona.interface'
-import { Customer } from '../../models/domain/customer.interface'
 import { StorageService } from 'src/app/shared/services/storage.service'
-import { CustomerReportDto } from 'src/app/boton/models/dtos/customer-reports-paged.dto'
 @Injectable({
     providedIn: 'root',
 })
@@ -32,10 +27,6 @@ export class AuthService {
     private readonly tokenService = inject(TokenService)
     private readonly storageService = inject(StorageService)
     private readonly apiUrl: string = environment.baseUrl
-
-    public _persona: Persona | null = null
-    public _account: Customer | null = null
-    public reports: CustomerReportDto[] | null = null
 
     private get defaultHeaders(): HttpHeaders {
         return new HttpHeaders({
@@ -78,22 +69,11 @@ export class AuthService {
         return this.http
             .post<AuthResponse>(`${this.apiUrl}/api/login`, data, { headers })
             .pipe(
-                tap(async (response) => {
-                    // console.log({
-                    //     user: response.user,
-                    //     reportes: response.reports,
-                    // })
-                    this._account = response.user
-                    // this.reports = response.reports
+                tap(async ({ user, reports, persona }) => {
                     await Promise.all([
-                        this.storageService.setStorageItem(
-                            'user',
-                            response.user
-                        ),
-                        this.storageService.setStorageItem(
-                            'reports',
-                            response.reports
-                        ),
+                        this.storageService.setStorageItem('user', user),
+                        // this.storageService.setStorageItem('reports', reports),
+                        this.storageService.setStorageItem('persona', persona),
                     ])
                 }),
                 catchError((error) => {
@@ -121,42 +101,10 @@ export class AuthService {
     }
 
     checkAuthentication(): Observable<boolean> {
-        return this.authHeaders.pipe(
-            switchMap((headers) =>
-                this.http
-                    .get<Persona>(`${this.apiUrl}/api/cliente`, { headers })
-                    .pipe(
-                        tap(async (persona) => {
-                            this._persona = persona
-                            await this.storageService.setStorageItem(
-                                'persona',
-                                persona
-                            )
-                        }),
-                        map(() => true),
-                        catchError(() => of(false))
-                    )
-            ),
-            catchError(() => of(false))
-        )
-    }
-
-    async loadStoredData(): Promise<void> {
-        this._persona = await this.storageService.getStorageItem<Persona>(
-            'persona'
-        )
-        this._account = await this.storageService.getStorageItem<Customer>(
-            'user'
-        )
+        return from(this.tokenService.loadToken()).pipe(map((token) => !!token))
     }
 
     private async clearAuthData(): Promise<void> {
-        await Promise.all([
-            this.tokenService.removeToken(),
-            this.storageService.removeStorageItem('user'),
-            this.storageService.removeStorageItem('persona'),
-        ])
-        this._persona = null
-        this._account = null
+        await this.storageService.clearStorage()
     }
 }
