@@ -49,6 +49,20 @@ export class HomePageComponent implements OnInit {
         this.previewImage = image.dataUrl
     }
 
+    private dataURLtoFile(dataUrl: string, filename: string): File {
+        const arr = dataUrl.split(',')
+        const mime = arr[0].match(/:(.*?);/)![1]
+        const bstr = atob(arr[1])
+        let n = bstr.length
+        const u8arr = new Uint8Array(n)
+
+        while (n--) {
+            u8arr[n] = bstr.charCodeAt(n)
+        }
+
+        return new File([u8arr], filename, { type: mime })
+    }
+
     async showWarningModal() {
         const modal = await this._modalController.create({
             component: WarningModalComponent,
@@ -154,6 +168,22 @@ export class HomePageComponent implements OnInit {
                 ...this.getCurrentReport(),
                 latitud: ubicacion.latitud,
                 longitud: ubicacion.longitud,
+            }
+
+            const formData = new FormData()
+
+            Object.entries(reporte).forEach(([key, value]) => {
+                if (value !== null && value !== undefined) {
+                    formData.append(key, value.toString())
+                }
+            })
+
+            if (this.previewImage) {
+                const imageFile = this.dataURLtoFile(
+                    this.previewImage,
+                    'image.jpg'
+                )
+                formData.append('imagen', imageFile)
             }
 
             // console.log(reporte)

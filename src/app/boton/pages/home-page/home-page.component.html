@@ -35,9 +35,17 @@
         </ion-text>
 
         <ion-item lines="none">
-            <ion-button expand="block" (click)="takePicture()"
-                >Agregar Foto</ion-button
+            <ion-button
+                style="margin: 0; padding: 0"
+                expand="block"
+                fill="clear"
+                (click)="takePicture()"
             >
+                <ion-icon
+                    style="font-size: 30px; color: #000"
+                    name="image-outline"
+                ></ion-icon>
+            </ion-button>
         </ion-item>
 
         <ion-img
