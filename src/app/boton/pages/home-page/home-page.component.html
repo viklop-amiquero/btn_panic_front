@@ -34,6 +34,18 @@
             Ingrese una descripción.
         </ion-text>
 
+        <ion-item lines="none">
+            <ion-button expand="block" (click)="takePicture()"
+                >Agregar Foto</ion-button
+            >
+        </ion-item>
+
+        <ion-img
+            *ngIf="previewImage"
+            [src]="previewImage"
+            class="preview-img"
+        ></ion-img>
+
         <!-- <button>hols</button> -->
         <div class="panic-container">
             <boton-btn-panic

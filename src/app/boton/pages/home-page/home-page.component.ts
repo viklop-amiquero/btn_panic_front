@@ -11,6 +11,7 @@ import { ModalController } from '@ionic/angular'
 import { WarningModalComponent } from '../../../shared/components/modals/warning-modal/warning-modal.component'
 import { ReporteCreateRequest } from '../../models/requests/reporte-create.request'
 import { CategoriaDto } from '../../models/dtos/categoria-list.dto'
+import { Camera, CameraResultType, CameraSource } from '@capacitor/camera'
 
 @Component({
     selector: 'app-home-page',
@@ -27,6 +28,7 @@ export class HomePageComponent implements OnInit {
     public latitud: number | null = null
     public longitud: number | null = null
     public messageShow: boolean = true
+    public previewImage: string | null | undefined = null
 
     constructor(
         private _botonService: BotonService,
@@ -36,6 +38,16 @@ export class HomePageComponent implements OnInit {
         private _validatorService: ValidatorsService,
         private _modalController: ModalController
     ) {}
+
+    async takePicture() {
+        const image = await Camera.getPhoto({
+            quality: 90,
+            allowEditing: false,
+            resultType: CameraResultType.DataUrl,
+            source: CameraSource.Prompt, // muestra opciones: cámara o galería
+        })
+        this.previewImage = image.dataUrl
+    }
 
     async showWarningModal() {
         const modal = await this._modalController.create({
