@@ -1,4 +1,4 @@
-# 🚨 APP Botón de Pánico - Backend
+# 🚨 APP Botón de Pánico - Frontend
 
 ---
 
