@@ -12,13 +12,10 @@
 ---
 
 ## 🛠️ Instalación
-
-```bash
 git clone https://github.com/viklop-amiquero/btn_panic_front.git
 cd btn_panic_front
 npm install
 ionic serve
-
 
 ## 🛠️ Configuración
 // Local
