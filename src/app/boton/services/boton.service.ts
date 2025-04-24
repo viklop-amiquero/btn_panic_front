@@ -66,15 +66,18 @@ export class BotonService {
     }
 
     CreateReport(
-        reporte: ReporteCreateRequest,
+        formData: FormData,
         token: string
     ): Observable<ReporteCreateResponse> {
         return this._http
             .post<ReporteCreateResponse>(
                 `${this._apiUrl}/api/reporte`,
-                reporte,
+                formData,
                 {
-                    headers: this.getHeaders(token),
+                    headers: {
+                        Authorization: `Bearer ${token}`,
+                        // ¡NO pongas 'Content-Type'! Angular lo hace por ti.
+                    },
                 }
             )
             .pipe(
@@ -83,6 +86,25 @@ export class BotonService {
                 })
             )
     }
+
+    // CreateReport(
+    //     reporte: ReporteCreateRequest,
+    //     token: string
+    // ): Observable<ReporteCreateResponse> {
+    //     return this._http
+    //         .post<ReporteCreateResponse>(
+    //             `${this._apiUrl}/api/reporte`,
+    //             reporte,
+    //             {
+    //                 headers: this.getHeaders(token),
+    //             }
+    //         )
+    //         .pipe(
+    //             catchError((error) => {
+    //                 return throwError(() => error)
+    //             })
+    //         )
+    // }
 
     getReports(): Observable<CustomerReportsPagedDto> {
         return from(this._tokenService.loadToken()).pipe(

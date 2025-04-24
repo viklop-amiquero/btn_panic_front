@@ -3,7 +3,10 @@
     <!-- <shared-header></shared-header> -->
     <form [formGroup]="homeForm" class="form">
         <ion-item>
-            <ion-label position="floating">Tipo de Incidencia</ion-label>
+            <ion-label position="floating">
+                Tipo de Incidencia
+                <span style="color: red">*</span>
+            </ion-label>
 
             <ion-select formControlName="categoria_id">
                 <ion-select-option
@@ -18,16 +21,22 @@
         </ion-text>
 
         <ion-item>
-            <ion-label position="floating">Dirección</ion-label>
+            <ion-label position="floating">
+                Dirección
+                <span style="color: red">*</span>
+            </ion-label>
             <ion-textarea formControlName="direccion"></ion-textarea>
         </ion-item>
 
         <ion-text color="danger" *ngIf="isInvalidField('direccion')">
-            Ingrese una direción.
+            Ingrese la direción del incidente.
         </ion-text>
 
         <ion-item>
-            <ion-label position="floating">Descripción</ion-label>
+            <ion-label position="floating">
+                Descripción
+                <span style="color: red">*</span>
+            </ion-label>
             <ion-textarea formControlName="descripcion"></ion-textarea>
         </ion-item>
         <ion-text color="danger" *ngIf="isInvalidField('descripcion')">
@@ -47,12 +56,22 @@
                 ></ion-icon>
             </ion-button>
         </ion-item>
+        <div class="preview-container" *ngIf="previewImage">
+            <ion-img [src]="previewImage" class="preview-img"></ion-img>
+            <button class="delete-btn" (click)="removePreview()">
+                <ion-icon
+                    name="close-circle"
+                    style="font-size: 24px"
+                ></ion-icon>
+            </button>
+        </div>
 
+        <!--
         <ion-img
             *ngIf="previewImage"
             [src]="previewImage"
             class="preview-img"
-        ></ion-img>
+        ></ion-img> -->
 
         <!-- <button>hols</button> -->
         <div class="panic-container">

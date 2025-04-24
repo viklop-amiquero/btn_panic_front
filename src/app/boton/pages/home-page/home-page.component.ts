@@ -187,13 +187,14 @@ export class HomePageComponent implements OnInit {
             }
 
             // console.log(reporte)
-            this._botonService.CreateReport(reporte, this._token).subscribe({
+            this._botonService.CreateReport(formData, this._token).subscribe({
                 next: (resp) => {
                     this._toastService.showToast(`${resp.message}`, 'success')
 
                     this.messageShow = false
                     setTimeout(() => {
                         this.resetForm()
+                        this.removePreview()
                     }, 2000)
                 },
                 error: (err) => {
@@ -203,7 +204,7 @@ export class HomePageComponent implements OnInit {
                             'warning'
                         )
                         this.resetForm()
-
+                        this.removePreview()
                         return
                     }
 
@@ -221,6 +222,7 @@ export class HomePageComponent implements OnInit {
                 'danger'
             )
             this.resetForm()
+            this.removePreview()
         }
     }
 
@@ -229,5 +231,10 @@ export class HomePageComponent implements OnInit {
             return
         }
         this.onSubmit()
+    }
+
+    removePreview() {
+        this.previewImage = null
+        // this.homeForm.get('imagen')?.setValue('')
     }
 }

@@ -11,3 +11,25 @@
     display: block;
     box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
   }
+
+  .preview-container {
+    position: relative;
+    width: 100%;
+    max-width: 300px; // o el tamaño que quieras
+
+    .preview-img {
+        width: 100%;
+        border-radius: 8px;
+    }
+
+    .delete-btn {
+        position: absolute;
+        top: 5px;
+        right: 5px;
+        background: transparent;
+        border: none;
+        cursor: pointer;
+        z-index: 10;
+        color: red;
+    }
+}
