@@ -2,7 +2,7 @@ import type { CapacitorConfig } from '@capacitor/cli'
 
 const config: CapacitorConfig = {
     appId: 'com.example.app',
-    appName: 'btn_panic',
+    appName: 'Botón de Pánico',
     webDir: 'www',
     plugins: {
         SplashScreen: {
