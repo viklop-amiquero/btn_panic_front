@@ -4,6 +4,7 @@ import { LoginPageComponent } from './pages/login-page/login-page.component'
 import { RegisterPageComponent } from './pages/register-page/register-page.component'
 import { RoutesName } from '../shared/routes/routes'
 import { AuthLayoutComponent } from './layout/auth-layout/auth-layout.component'
+import { PasswordRecoverPageComponent } from './pages/password-recover-page/password-recover-page.component'
 
 const routes: Routes = [
     {
@@ -14,6 +15,10 @@ const routes: Routes = [
             {
                 path: RoutesName.REGISTER.route,
                 component: RegisterPageComponent,
+            },
+            {
+                path: RoutesName.PASSWORD.route,
+                component: PasswordRecoverPageComponent,
             },
             {
                 path: '**',

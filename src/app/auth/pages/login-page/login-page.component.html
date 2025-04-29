@@ -37,11 +37,28 @@
         Iniciar Sesión
     </ion-button>
 
-    <a
-        [routerLink]="['/', routesName.AUTH.route, routesName.REGISTER.route]"
-        class="register-link"
-    >
-        ¿Aún no tienes una cuenta?
-    </a>
+    <div class="link-flex">
+        <a
+            [routerLink]="[
+                '/',
+                routesName.AUTH.route,
+                routesName.REGISTER.route
+            ]"
+            class="register-link"
+        >
+            ¿Aún no tienes una cuenta?
+        </a>
+
+        <a
+            [routerLink]="[
+                '/',
+                routesName.AUTH.route,
+                routesName.PASSWORD.route
+            ]"
+            class="register-link"
+        >
+            Olvidé mi contraseña
+        </a>
+    </div>
 </form>
 <!-- </ion-content> -->

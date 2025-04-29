@@ -100,6 +100,11 @@ export class AuthService {
         )
     }
 
+    // passwordRecover(
+    //     customer: CustomerCreateRequest
+    // ): Observable<CustomerCreateResponse> {
+    // }
+
     checkAuthentication(): Observable<boolean> {
         return from(this.tokenService.loadToken()).pipe(map((token) => !!token))
     }
