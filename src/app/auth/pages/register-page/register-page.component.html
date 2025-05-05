@@ -28,6 +28,58 @@
         La dircción es invalida.
     </ion-text>
 
+    <!-- <ion-item lines="none">
+        <ion-label position="floating">DNI</ion-label>
+        <ion-grid>
+            <ion-row>
+                <ion-col size="9">
+                    <ion-input
+                        formControlName="dni"
+                        placeholder="DNI"
+                    ></ion-input>
+                </ion-col>
+
+                <ion-col size="3">
+                    <ion-input
+                        formControlName="digito_verificador"
+                        placeholder="DV"
+                        maxlength="1"
+                    ></ion-input>
+                </ion-col>
+            </ion-row>
+        </ion-grid>
+    </ion-item> -->
+
+    <!-- <ion-item lines="none">
+        <ion-label position="floating">DNI</ion-label>
+        <ion-grid>
+            <ion-row>
+                <ion-col size="6">
+                    <ion-input
+                        formControlName="dni"
+                        placeholder="DNI"
+                    ></ion-input>
+                </ion-col>
+                <ion-col size="4">
+                    <ion-input
+                        formControlName="digito_verificador"
+                        placeholder="DV"
+                        maxlength="1"
+                    ></ion-input>
+                </ion-col>
+                <ion-col size="2" class="info-btn-col">
+                    <ion-button
+                        fill="clear"
+                        size="small"
+                        (click)="openInfoModal()"
+                    >
+                        <ion-icon name="information-circle-outline"></ion-icon>
+                    </ion-button>
+                </ion-col>
+            </ion-row>
+        </ion-grid>
+    </ion-item> -->
+
     <ion-item>
         <ion-label position="floating">DNI</ion-label>
         <ion-input formControlName="dni"></ion-input>
@@ -35,7 +87,32 @@
 
     <ion-text color="danger" *ngIf="isInvalidField('dni')">
         {{ getErrorMessage('dni') }}
-        <!-- El DNI es inválido. -->
+    </ion-text>
+
+    <ion-item lines="full">
+        <ion-label position="floating">Dígito Verificador</ion-label>
+
+        <ion-input
+            formControlName="digito_verificador"
+            maxlength="1"
+        ></ion-input>
+
+        <ion-button
+            fill="clear"
+            slot="end"
+            size="small"
+            class="info-icon-button"
+            (click)="openInfoModal()"
+        >
+            <ion-icon
+                slot="icon-only"
+                name="information-circle-outline"
+            ></ion-icon>
+        </ion-button>
+    </ion-item>
+
+    <ion-text color="danger" *ngIf="isInvalidField('digito_verificador')">
+        {{ getErrorMessage('digito_verificador') }}
     </ion-text>
 
     <ion-item>
@@ -44,7 +121,7 @@
     </ion-item>
 
     <ion-text color="danger" *ngIf="isInvalidField('telefono')">
-        El celular es inválido.
+        {{ getErrorMessage('telefono') }}
     </ion-text>
 
     <ion-item>
@@ -58,7 +135,16 @@
 
     <ion-item>
         <ion-label position="floating">Contraseña</ion-label>
-        <ion-input type="password" formControlName="password"></ion-input>
+        <ion-input
+            [type]="showPassword ? 'text' : 'password'"
+            formControlName="password"
+        ></ion-input>
+        <ion-icon
+            [name]="showPassword ? 'eye-off-outline' : 'eye-outline'"
+            slot="end"
+            (click)="togglePasswordVisibility()"
+            style="cursor: pointer"
+        ></ion-icon>
     </ion-item>
 
     <ion-text color="danger" *ngIf="isInvalidField('password')">
@@ -68,10 +154,17 @@
 
     <ion-item>
         <ion-label position="floating">Repetir Contraseña</ion-label>
+
         <ion-input
-            type="password"
+            [type]="showPassword ? 'text' : 'password'"
             formControlName="password_confirmation"
         ></ion-input>
+        <ion-icon
+            [name]="showPassword ? 'eye-off-outline' : 'eye-outline'"
+            slot="end"
+            (click)="togglePasswordVisibility()"
+            style="cursor: pointer"
+        ></ion-icon>
     </ion-item>
 
     <ion-text color="danger" *ngIf="isInvalidField('password_confirmation')">

@@ -6,6 +6,9 @@ import { ToastService } from 'src/app/shared/services/toast.service'
 import { AuthService } from '../../services/auth.service'
 import { Router } from '@angular/router'
 import { RoutesName } from 'src/app/shared/routes/routes'
+import { ModalController } from '@ionic/angular'
+import { InfoDvComponent } from '../../components/info-dv/info-dv.component'
+import { RecoverPasswordRequest } from '../../models/requests/recover-password.request'
 
 @Component({
     selector: 'app-password-recover-page',
@@ -18,29 +21,38 @@ export class PasswordRecoverPageComponent implements OnInit {
 
     private _fb: FormBuilder = new FormBuilder()
     public routesName = RoutesName
+    public showPassword: boolean = false
 
     constructor(
         private _validator: ValidatorsService,
         private _toast: ToastService,
         private _authService: AuthService,
-        private _router: Router
+        private _router: Router,
+        private _modalCtrl: ModalController
     ) {}
     ngOnInit() {}
 
-    public registerForm: FormGroup = this._fb.group(
+    public recoverPasswordForm: FormGroup = this._fb.group(
         {
-            email: [
+            username: [
                 '',
                 [
                     Validators.required,
                     Validators.pattern(this._validator.emailPattern),
                 ],
             ],
-            telefono: [
+            dni: [
                 '',
                 [
                     Validators.required,
-                    Validators.pattern(this._validator.celularPattern),
+                    Validators.pattern(this._validator.dniPattern),
+                ],
+            ],
+            digito_verificador: [
+                '',
+                [
+                    Validators.required,
+                    Validators.pattern(this._validator.digitoPattern),
                 ],
             ],
             password: [
@@ -60,13 +72,66 @@ export class PasswordRecoverPageComponent implements OnInit {
             ),
         }
     )
-    onSubmit() {}
+
+    togglePasswordVisibility() {
+        this.showPassword = !this.showPassword
+    }
+
+    getCurrentDataForm(): RecoverPasswordRequest {
+        const data = this.recoverPasswordForm.value
+        return data
+    }
+
+    onSubmit(): void {
+        if (this.recoverPasswordForm.invalid) {
+            this.recoverPasswordForm.markAllAsTouched()
+            return
+        }
+
+        this._authService.passwordRecover(this.getCurrentDataForm()).subscribe({
+            next: (resp) => {
+                // console.log(resp.message)
+                this._toast.showToast(
+                    `Se actualizó la contraseña exitosamente`,
+                    'success'
+                )
+
+                // resetear formulario
+                this.recoverPasswordForm.reset()
+                //redirigir
+                this._router.navigate([RoutesName.LOGIN.route])
+            },
+            error: (err) => {
+                if (!err.error || !err.error.errors) {
+                    this._toast.showToast(
+                        'Ocurrió un error inesperado, por favor intentelo más tarde.',
+                        'warning'
+                    )
+                    return
+                }
+
+                const errorMessages = Object.values(err.error.errors).flat()
+                errorMessages.forEach((message, index) => {
+                    setTimeout(() => {
+                        this._toast.showToast(`${message}`, 'danger')
+                    }, index * 1500)
+                })
+            },
+        })
+    }
 
     isInvalidField(field: string): boolean | null {
-        return this._validator.isInvalidField(this.registerForm, field)
+        return this._validator.isInvalidField(this.recoverPasswordForm, field)
     }
 
     getErrorMessage(field: string): string | null {
-        return this._validator.getErrorMessage(field, this.registerForm)
+        return this._validator.getErrorMessage(field, this.recoverPasswordForm)
+    }
+
+    async openInfoModal() {
+        const modal = await this._modalCtrl.create({
+            component: InfoDvComponent,
+        })
+        await modal.present()
     }
 }

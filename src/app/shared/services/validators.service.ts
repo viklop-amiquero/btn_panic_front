@@ -8,6 +8,7 @@ export class ValidatorsService {
     public namePattern: string = '^[A-Za-zÁÉÍÓÚáéíóúÑñ\\s]+$'
     public emailPattern: string = '^[a-z0-9._%+-]+@[a-z0-9.-]+\\.[a-z]{2,4}$'
     public dniPattern: string = '^[0-9]{8}$'
+    public digitoPattern: string = '^[0-9]$'
     public celularPattern: string = '^[0-9]{9}$'
     constructor() {}
 
@@ -52,6 +53,8 @@ export class ValidatorsService {
                     return 'Solo se permiten letras.'
                 case 'dni':
                     return 'El DNI no es válido.'
+                case 'digito_verificador':
+                    return 'El dígito verificador no es válido.'
                 case 'telefono':
                     return 'El celular no es válido.'
                 case 'email':

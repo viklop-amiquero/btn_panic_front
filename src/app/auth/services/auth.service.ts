@@ -19,6 +19,7 @@ import { CustomerCreateResponse } from '../models/responses/customer-create.resp
 import { AuthResponse } from '../models/responses/auth.response'
 import { AuthRequest } from '../models/requests/auth.request'
 import { StorageService } from 'src/app/shared/services/storage.service'
+import { RecoverPasswordRequest } from '../models/requests/recover-password.request'
 @Injectable({
     providedIn: 'root',
 })
@@ -100,10 +101,16 @@ export class AuthService {
         )
     }
 
-    // passwordRecover(
-    //     customer: CustomerCreateRequest
-    // ): Observable<CustomerCreateResponse> {
-    // }
+    passwordRecover(data: RecoverPasswordRequest): Observable<boolean> {
+        return this.http
+            .post<boolean>(`${this.apiUrl}/api/password-recover`, data, {
+                headers: this.defaultHeaders,
+            })
+            .pipe(
+                map(() => true),
+                catchError((error) => throwError(() => error))
+            )
+    }
 
     checkAuthentication(): Observable<boolean> {
         return from(this.tokenService.loadToken()).pipe(map((token) => !!token))

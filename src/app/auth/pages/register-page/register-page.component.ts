@@ -12,6 +12,8 @@ import { ValidatorsService } from 'src/app/shared/services/validators.service'
 
 import { RoutesName } from 'src/app/shared/routes/routes'
 import { CustomerCreateRequest } from '../../models/requests/customer-create.request'
+import { AlertController, ModalController } from '@ionic/angular'
+import { InfoDvComponent } from '../../components/info-dv/info-dv.component'
 
 @Component({
     selector: 'app-register-page',
@@ -23,11 +25,14 @@ export class RegisterPageComponent implements OnInit {
     public title: string = 'registrarse'
     private _fb: FormBuilder = new FormBuilder()
     public routesName = RoutesName
+    public showPassword: boolean = false
+
     constructor(
         private _authService: AuthService,
         private _toast: ToastService,
         private _validator: ValidatorsService,
-        private _router: Router
+        private _router: Router,
+        private _modalCtrl: ModalController
     ) {}
 
     public registerForm: FormGroup = this._fb.group(
@@ -52,6 +57,13 @@ export class RegisterPageComponent implements OnInit {
                 [
                     Validators.required,
                     Validators.pattern(this._validator.dniPattern),
+                ],
+            ],
+            digito_verificador: [
+                '',
+                [
+                    Validators.required,
+                    Validators.pattern(this._validator.digitoPattern),
                 ],
             ],
             email: [
@@ -94,6 +106,9 @@ export class RegisterPageComponent implements OnInit {
         Keyboard.setScroll({ isDisabled: false })
     }
 
+    togglePasswordVisibility() {
+        this.showPassword = !this.showPassword
+    }
     isInvalidField(field: string): boolean | null {
         return this._validator.isInvalidField(this.registerForm, field)
     }
@@ -150,5 +165,12 @@ export class RegisterPageComponent implements OnInit {
 
     getErrorMessage(field: string): string | null {
         return this._validator.getErrorMessage(field, this.registerForm)
+    }
+
+    async openInfoModal() {
+        const modal = await this._modalCtrl.create({
+            component: InfoDvComponent,
+        })
+        await modal.present()
     }
 }
