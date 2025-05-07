@@ -11,6 +11,7 @@ import { RoutesName } from 'src/app/shared/routes/routes'
 
 import { AuthRequest } from '../../models/requests/auth.request'
 import { AuthResponse } from '../../models/responses/auth.response'
+import { PasswordVisibilityHandler } from 'src/app/shared/helpers/password-visibility.helper'
 
 @Component({
     selector: 'app-login-page',
@@ -23,7 +24,7 @@ export class LoginPageComponent implements OnInit {
     private _fb: FormBuilder = new FormBuilder()
     public routesName = RoutesName
     public loading = true
-    public showPassword: boolean = false
+    public showPassword = new PasswordVisibilityHandler()
     constructor(
         private _validator: ValidatorsService,
         private _toast: ToastService,
@@ -43,10 +44,6 @@ export class LoginPageComponent implements OnInit {
     })
 
     ngOnInit() {}
-
-    togglePasswordVisibility() {
-        this.showPassword = !this.showPassword
-    }
 
     getCurrentCredentials(): AuthRequest {
         const data = this.loginForm.value

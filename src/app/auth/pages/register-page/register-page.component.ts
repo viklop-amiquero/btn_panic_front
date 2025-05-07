@@ -14,6 +14,7 @@ import { RoutesName } from 'src/app/shared/routes/routes'
 import { CustomerCreateRequest } from '../../models/requests/customer-create.request'
 import { AlertController, ModalController } from '@ionic/angular'
 import { InfoDvComponent } from '../../components/info-dv/info-dv.component'
+import { PasswordVisibilityHandler } from 'src/app/shared/helpers/password-visibility.helper'
 
 @Component({
     selector: 'app-register-page',
@@ -25,7 +26,7 @@ export class RegisterPageComponent implements OnInit {
     public title: string = 'registrarse'
     private _fb: FormBuilder = new FormBuilder()
     public routesName = RoutesName
-    public showPassword: boolean = false
+    public showPassword = new PasswordVisibilityHandler()
 
     constructor(
         private _authService: AuthService,
@@ -106,9 +107,6 @@ export class RegisterPageComponent implements OnInit {
         Keyboard.setScroll({ isDisabled: false })
     }
 
-    togglePasswordVisibility() {
-        this.showPassword = !this.showPassword
-    }
     isInvalidField(field: string): boolean | null {
         return this._validator.isInvalidField(this.registerForm, field)
     }

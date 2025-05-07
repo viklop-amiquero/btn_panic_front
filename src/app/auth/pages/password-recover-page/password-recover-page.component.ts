@@ -9,6 +9,7 @@ import { RoutesName } from 'src/app/shared/routes/routes'
 import { ModalController } from '@ionic/angular'
 import { InfoDvComponent } from '../../components/info-dv/info-dv.component'
 import { RecoverPasswordRequest } from '../../models/requests/recover-password.request'
+import { PasswordVisibilityHandler } from 'src/app/shared/helpers/password-visibility.helper'
 
 @Component({
     selector: 'app-password-recover-page',
@@ -21,7 +22,7 @@ export class PasswordRecoverPageComponent implements OnInit {
 
     private _fb: FormBuilder = new FormBuilder()
     public routesName = RoutesName
-    public showPassword: boolean = false
+    public showPassword = new PasswordVisibilityHandler()
 
     constructor(
         private _validator: ValidatorsService,
@@ -72,10 +73,6 @@ export class PasswordRecoverPageComponent implements OnInit {
             ),
         }
     )
-
-    togglePasswordVisibility() {
-        this.showPassword = !this.showPassword
-    }
 
     getCurrentDataForm(): RecoverPasswordRequest {
         const data = this.recoverPasswordForm.value
